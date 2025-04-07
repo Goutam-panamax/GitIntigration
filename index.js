@@ -5,6 +5,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const fs = require('fs');
+const github = require('./githubClient');
 
 const app = express();
 const PORT = 3000;
@@ -73,6 +74,57 @@ app.post('/git/commit/dev', async (req, res) => {
   }
 });
 
+//GIT API
+app.post('/api/commit-to-dev', async (req, res) => {
+    const filePath = path.join(__dirname, 'Files', req.body.fileName);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const branch = 'dev';
+  
+    try {
+      const { data: refData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/ref/heads/${branch}`);
+      const latestCommitSha = refData.object.sha;
+  
+      const { data: commitData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits/${latestCommitSha}`);
+      const baseTree = commitData.tree.sha;
+  
+      // Create blob (file content)
+      const { data: blobData } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/blobs`, {
+        content: content,
+        encoding: 'utf-8'
+      });
+  
+      // Create tree
+      const { data: treeData } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/trees`, {
+        base_tree: baseTree,
+        tree: [
+          {
+            path: `Files/${req.body.fileName}`,
+            mode: '100644',
+            type: 'blob',
+            sha: blobData.sha
+          }
+        ]
+      });
+  
+      // Create commit
+      const { data: newCommit } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits`, {
+        message: `Add ${req.body.fileName} to dev`,
+        tree: treeData.sha,
+        parents: [latestCommitSha]
+      });
+  
+      // Update branch reference
+      await github.patch(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/refs/heads/${branch}`, {
+        sha: newCommit.sha
+      });
+  
+      res.json({ message: `File committed to ${branch} branch` });
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      res.status(500).json({ error: err.message });
+    }
+});
+
 // ======================================
 // 🚀 API 2: Promote dev ➝ UAT
 // ======================================
@@ -89,6 +141,22 @@ app.post('/git/promote/dev-to-uat', async (req, res) => {
   }
 });
 
+//GIT API
+app.post('/api/promote/dev-to-uat', async (req, res) => {
+    try {
+      const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`, {
+        base: 'UAT',
+        head: 'dev',
+        commit_message: 'Merging dev into UAT'
+      });
+  
+      res.json({ message: 'dev merged into UAT', merge_commit_sha: data.sha });
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      res.status(500).json({ error: err.message });
+    }
+});
+
 // ======================================
 // 🚀 API 3: Promote UAT ➝ main
 // ======================================
@@ -103,6 +171,22 @@ app.post('/git/promote/uat-to-main', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
+});
+
+//GIT API
+app.post('/api/promote/uat-to-main', async (req, res) => {
+    try {
+      const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`, {
+        base: 'main',
+        head: 'UAT',
+        commit_message: 'Merging UAT into main'
+      });
+  
+      res.json({ message: 'UAT merged into main', merge_commit_sha: data.sha });
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      res.status(500).json({ error: err.message });
+    }
 });
 
 // =======================================
@@ -178,7 +262,20 @@ app.post('/git/switch', async (req, res) => {
     } catch (err) {
       res.status(500).json({ success: false, error: err.message });
     }
-  });
+});
+
+//GIT API
+app.post('/api/switch', async (req, res) => {
+    const { branch } = req.body;
+  
+    try {
+      const { data: branchData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/branches/${branch}`);
+      res.json({ message: `Switched to ${branch}`, commit: branchData.commit });
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      res.status(500).json({ error: err.message });
+    }
+});
   
 
 // ✅ Start server
