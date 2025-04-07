@@ -75,8 +75,9 @@ app.post('/git/commit/dev', async (req, res) => {
 });
 
 //GIT API
-app.post('/api/commit-to-dev', async (req, res) => {
-    const filePath = path.join(__dirname, 'Files', req.body.fileName);
+app.post('/api/commit/dev', async (req, res) => {
+    const { message, files = ['.'] } = req.body;
+    const filePath = path.join(__dirname,files[0]);
     const content = fs.readFileSync(filePath, 'utf8');
     const branch = 'dev';
   
@@ -98,7 +99,7 @@ app.post('/api/commit-to-dev', async (req, res) => {
         base_tree: baseTree,
         tree: [
           {
-            path: `Files/${req.body.fileName}`,
+            path: files[0],
             mode: '100644',
             type: 'blob',
             sha: blobData.sha
@@ -108,7 +109,7 @@ app.post('/api/commit-to-dev', async (req, res) => {
   
       // Create commit
       const { data: newCommit } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits`, {
-        message: `Add ${req.body.fileName} to dev`,
+        message: message,
         tree: treeData.sha,
         parents: [latestCommitSha]
       });
