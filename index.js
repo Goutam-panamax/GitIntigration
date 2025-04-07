@@ -3,6 +3,8 @@ const simpleGit = require('simple-git');
 const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
@@ -14,38 +16,74 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // ✅ Configure Git Repo Path
-const git = simpleGit(path.resolve(__dirname, './your-repo-path-here'));
+const repoPath = path.resolve(__dirname); // root directory
+const git = simpleGit(repoPath);
+
+// Create Files directory if it doesn't exist
+const filesDir = path.join(__dirname, 'Files');
+if (!fs.existsSync(filesDir)) {
+  fs.mkdirSync(filesDir);
+}
+
+// Multer setup for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'Files/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // Save with original name
+  }
+});
+
+const upload = multer({ storage });
+
+// 🚀 Upload API
+app.post('/upload-file', upload.single('file'), (req, res) => {
+  if (!req.file) return res.status(400).send('No file uploaded');
+  return res.json({ message: 'File uploaded successfully', file: req.file.filename });
+});
 
 // ==============================
-// 🚀 API 1: Commit to Dev Branch
+// 🚀 API 0: Test Run API
+// ==============================
+app.post('/', async (req, res) => {
+    try {
+      res.json({ success: true, message: 'Request Recieved in Test Run.',Data: req.body });
+    } catch (err) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  });
+
+// ==============================
+// 🚀 API 1: Commit to dev Branch
 // ==============================
 app.post('/git/commit/dev', async (req, res) => {
   const { message, files = ['.'] } = req.body;
 
   try {
-    await git.checkout('Dev');
-    await git.pull('origin', 'Dev');
+    await git.checkout('dev');
+    await git.pull('origin', 'dev');
     await git.add(files);
     await git.commit(message);
-    await git.push('origin', 'Dev');
+    await git.push('origin', 'dev');
 
-    res.json({ success: true, message: 'Changes committed to Dev branch.' });
+    res.json({ success: true, message: 'Changes committed to dev branch.' });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
 // ======================================
-// 🚀 API 2: Promote Dev ➝ UAT
+// 🚀 API 2: Promote dev ➝ UAT
 // ======================================
 app.post('/git/promote/dev-to-uat', async (req, res) => {
   try {
     await git.checkout('UAT');
     await git.pull('origin', 'UAT');
-    await git.mergeFromTo('Dev', 'UAT');
+    await git.mergeFromTo('dev', 'UAT');
     await git.push('origin', 'UAT');
 
-    res.json({ success: true, message: 'Merged Dev into UAT successfully.' });
+    res.json({ success: true, message: 'Merged dev into UAT successfully.' });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
