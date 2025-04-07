@@ -90,16 +90,16 @@ app.post('/git/promote/dev-to-uat', async (req, res) => {
 });
 
 // ======================================
-// 🚀 API 3: Promote UAT ➝ Main
+// 🚀 API 3: Promote UAT ➝ main
 // ======================================
 app.post('/git/promote/uat-to-main', async (req, res) => {
   try {
-    await git.checkout('Main');
-    await git.pull('origin', 'Main');
-    await git.mergeFromTo('UAT', 'Main');
-    await git.push('origin', 'Main');
+    await git.checkout('main');
+    await git.pull('origin', 'main');
+    await git.mergeFromTo('UAT', 'main');
+    await git.push('origin', 'main');
 
-    res.json({ success: true, message: 'Merged UAT into Main successfully.' });
+    res.json({ success: true, message: 'Merged UAT into main successfully.' });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
