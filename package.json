@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index",
+    "app": "nodemon app",
     "start": "node index.js"
   },
   "author": "",

@@ -38,26 +38,54 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// 🚀 Upload API
-app.post('/upload-file', upload.single('file'), (req, res) => {
-  if (!req.file) return res.status(400).send('No file uploaded');
-  return res.json({ message: 'File uploaded successfully', file: req.file.filename });
-});
-
-// ==============================
-// 🚀 API 0: Test Run API
-// ==============================
+//Test API
 app.post('/', async (req, res) => {
     try {
       res.json({ success: true, message: 'Request Recieved in Test Run.',Data: req.body });
     } catch (err) {
       res.status(500).json({ success: false, error: err.message });
     }
+});
+
+// ==============================
+// 🚀 API 0: Upload API
+// ==============================
+app.post('/upload-file', upload.single('file'), (req, res) => {
+    if (!req.file) return res.status(400).send('No file uploaded');
+    return res.json({ message: 'File uploaded successfully', file: req.file.filename });
   });
 
 // ==============================
 // 🚀 API 1: Commit to dev Branch
 // ==============================
+app.post('/git/commit/dev/all', async (req, res) => {
+  const { message = "Auto commit to Dev" } = req.body;
+
+  try {
+    // Checkout dev branch and pull latest
+    await git.checkout('dev');
+    await git.pull('origin', 'dev');
+
+    // Stage all changes (added, modified, deleted)
+    await git.add('./*'); // or git.add('.')
+
+    // Commit all staged changes
+    const commitResult = await git.commit(message);
+
+    // Push to dev branch
+    await git.push('origin', 'dev');
+
+    res.json({
+      message: 'All changes committed and pushed to dev branch.',
+      commit: commitResult.commit,
+    });
+  } catch (err) {
+    console.error('Commit Error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 app.post('/git/commit/dev', async (req, res) => {
   const { message, files = ['.'] } = req.body;
 
@@ -74,61 +102,26 @@ app.post('/git/commit/dev', async (req, res) => {
   }
 });
 
-//GIT API
-app.post('/api/commit/dev', async (req, res) => {
-    const { message, files = ['.'] } = req.body;
-    const filePath = path.join(__dirname,files[0]);
-    const content = fs.readFileSync(filePath, 'utf8');
-    const branch = 'dev';
-  
-    try {
-      const { data: refData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/ref/heads/${branch}`);
-      const latestCommitSha = refData.object.sha;
-  
-      const { data: commitData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits/${latestCommitSha}`);
-      const baseTree = commitData.tree.sha;
-  
-      // Create blob (file content)
-      const { data: blobData } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/blobs`, {
-        content: content,
-        encoding: 'utf-8'
-      });
-  
-      // Create tree
-      const { data: treeData } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/trees`, {
-        base_tree: baseTree,
-        tree: [
-          {
-            path: files[0],
-            mode: '100644',
-            type: 'blob',
-            sha: blobData.sha
-          }
-        ]
-      });
-  
-      // Create commit
-      const { data: newCommit } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits`, {
-        message: message,
-        tree: treeData.sha,
-        parents: [latestCommitSha]
-      });
-  
-      // Update branch reference
-      await github.patch(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/refs/heads/${branch}`, {
-        sha: newCommit.sha
-      });
-  
-      res.json({ message: `File committed to ${branch} branch` });
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      res.status(500).json({ error: err.message });
-    }
-});
-
 // ======================================
 // 🚀 API 2: Promote dev ➝ UAT
 // ======================================
+app.post('/git/promote/dev-to-uat/selective', async (req, res) => {
+  try {
+    await git.fetch();
+    await git.checkout('UAT');
+    await git.pull('origin', 'UAT');
+
+    for (const sha of commitShas) {
+      await git.cherryPick(sha);
+    }
+
+    await git.push('origin', 'UAT');
+    res.json({ message: 'Selected commits promoted to UAT.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 app.post('/git/promote/dev-to-uat', async (req, res) => {
   try {
     await git.checkout('UAT');
@@ -140,22 +133,6 @@ app.post('/git/promote/dev-to-uat', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
-});
-
-//GIT API
-app.post('/api/promote/dev-to-uat', async (req, res) => {
-    try {
-      const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`, {
-        base: 'UAT',
-        head: 'dev',
-        commit_message: 'Merging dev into UAT'
-      });
-  
-      res.json({ message: 'dev merged into UAT', merge_commit_sha: data.sha });
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      res.status(500).json({ error: err.message });
-    }
 });
 
 // ======================================
@@ -172,22 +149,6 @@ app.post('/git/promote/uat-to-main', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
-});
-
-//GIT API
-app.post('/api/promote/uat-to-main', async (req, res) => {
-    try {
-      const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`, {
-        base: 'main',
-        head: 'UAT',
-        commit_message: 'Merging UAT into main'
-      });
-  
-      res.json({ message: 'UAT merged into main', merge_commit_sha: data.sha });
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      res.status(500).json({ error: err.message });
-    }
 });
 
 // =======================================
@@ -240,44 +201,30 @@ app.get('/git/logs/:branch/user/:username', async (req, res) => {
 // 🚀 API 6: Switch to a Specific Branch
 // ==========================================
 app.post('/git/switch', async (req, res) => {
-    const { branchName } = req.body;
+    const { branch } = req.body;
   
-    if (!branchName) {
-      return res.status(400).json({ success: false, message: 'branchName is required in the request body.' });
+    if (!branch) {
+      return res.status(400).json({ success: false, message: 'branch is required in the request body.' });
     }
   
     try {
       // Check if the branch exists
       const branches = await git.branch();
-      const branchExists = branches.all.includes(branchName);
+      const branchExists = branches.all.includes(branch);
   
       if (!branchExists) {
-        return res.status(404).json({ success: false, message: `Branch '${branchName}' does not exist.` });
+        return res.status(404).json({ success: false, message: `Branch '${branch}' does not exist.` });
       }
   
       // Switch to the specified branch
-      await git.checkout(branchName);
-      await git.pull('origin', branchName);
+      await git.checkout(branch);
+      await git.pull('origin', branch);
   
-      res.json({ success: true, message: `Switched to branch '${branchName}' and pulled latest changes.` });
+      res.json({ success: true, message: `Switched to branch '${branch}' and pulled latest changes.` });
     } catch (err) {
       res.status(500).json({ success: false, error: err.message });
     }
 });
-
-//GIT API
-app.post('/api/switch', async (req, res) => {
-    const { branch } = req.body;
-  
-    try {
-      const { data: branchData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/branches/${branch}`);
-      res.json({ message: `Switched to ${branch}`, commit: branchData.commit });
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      res.status(500).json({ error: err.message });
-    }
-});
-  
 
 // ✅ Start server
 app.listen(PORT, () => {
