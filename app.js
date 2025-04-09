@@ -154,7 +154,7 @@ app.post('/git/commit/dev', async (req, res) => {
         file: files[0],
         message: message,
         branch: 'dev',
-        date: now
+        date: new Date()
       };
 
       let records = [];
@@ -198,7 +198,7 @@ app.post('/git/promote/dev-to-uat/selected', async (req, res) => {
           file: "same as dev",
           message: commit_essentials?.commit_message,
           branch: commit_essentials?.head,
-          date: now
+          date: new Date()
         };
 
         if (await fs.pathExists(RECORDS_FILE)) {
