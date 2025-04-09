@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 const path = require('path');
 require('dotenv').config();
 const github = require('./githubClient');
@@ -35,6 +36,73 @@ app.post('/upload-file', upload.single('file'), (req, res) => {
 });
 
 // Commit File to Dev Branch
+app.post('/git/commit/dev/all', async (req, res) => {
+  const commitMessage = req?.body?.message || 'Committing all changes to dev';
+  const BRANCH = 'dev';
+  const REPO_PATH = path.join(__dirname);
+
+  try {
+    // 1. Get reference to the branch
+    const refRes = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/ref/heads/${BRANCH}`);
+    const latestCommitSha = refRes.data.object.sha;
+
+    // 2. Get latest commit data (to get tree SHA)
+    const commitRes = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits/${latestCommitSha}`);
+    const baseTreeSha = commitRes.data.tree.sha;
+
+    // 3. Read all files from REPO_PATH
+    const files = await fsExtra.readdir(REPO_PATH);
+    const blobs = [];
+
+    for (const file of files) {
+      const fullPath = path.join(REPO_PATH, file);
+      const stats = await fsExtra.stat(fullPath);
+      if (stats.isFile()) {
+        const content = await fsExtra.readFile(fullPath, 'utf8');
+        // 4. Create a blob for each file
+        const blobRes = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/blobs`, {
+          content,
+          encoding: 'utf-8',
+        });
+
+        blobs.push({
+          path: file,
+          mode: '100644',
+          type: 'blob',
+          sha: blobRes.data.sha,
+        });
+      }
+    }
+
+    // 5. Create a new tree with the blobs
+    const treeRes = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/trees`, {
+      base_tree: baseTreeSha,
+      tree: blobs,
+    });
+
+    // 6. Create a new commit
+    const commitRes2 = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits`, {
+      message: commitMessage,
+      tree: treeRes.data.sha,
+      parents: [latestCommitSha],
+    });
+
+    // 7. Update the ref (branch)
+    await github.patch(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/refs/heads/${BRANCH}`, {
+      sha: commitRes2.data.sha,
+    });
+
+    res.json({
+      message: 'Committed all local changes to dev branch via GitHub API',
+      commitSha: commitRes2.data.sha,
+    });
+
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.post('/git/commit/dev', async (req, res) => {
     const { message, files = ['.'] } = req.body;
     const filePath = path.join(__dirname,files[0]);
