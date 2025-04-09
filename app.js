@@ -150,7 +150,7 @@ app.post('/git/commit/dev', async (req, res) => {
 
       //Append to records.json
       const record = {
-        sha: newCommit.data.sha,
+        sha: newCommit.sha,
         file: files[0],
         message: message,
         branch: 'dev',
