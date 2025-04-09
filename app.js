@@ -158,12 +158,12 @@ app.post('/git/commit/dev', async (req, res) => {
       };
 
       let records = [];
-      if (await fs.pathExists(RECORDS_FILE)) {
-        records = await fs.readJSON(RECORDS_FILE);
+      if (await fsExtra.pathExists(RECORDS_FILE)) {
+        records = await fsExtra.readJSON(RECORDS_FILE);
       }
 
       records.push(record);
-      await fs.writeJSON(RECORDS_FILE, records, { spaces: 2 });
+      await fsExtra.writeJSON(RECORDS_FILE, records, { spaces: 2 });
 
       res.json(record);
     } catch (err) {
@@ -201,12 +201,12 @@ app.post('/git/promote/dev-to-uat/selected', async (req, res) => {
           date: new Date()
         };
 
-        if (await fs.pathExists(RECORDS_FILE)) {
-          records = await fs.readJSON(RECORDS_FILE);
+        if (await fsExtra.pathExists(RECORDS_FILE)) {
+          records = await fsExtra.readJSON(RECORDS_FILE);
         }
 
         records.push(record);
-        await fs.writeJSON(RECORDS_FILE, records, { spaces: 2 });
+        await fsExtra.writeJSON(RECORDS_FILE, records, { spaces: 2 });
 
       }catch (err) {
         console.error(`Failed to merge ${sha}:`, err.response?.data || err.message);
