@@ -26,6 +26,7 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
+const RECORDS_FILE = path.join(__dirname, 'records.json');
 
 // Upload File to Files Folder
 app.post('/upload-file', upload.single('file'), (req, res) => {
@@ -146,8 +147,25 @@ app.post('/git/commit/dev', async (req, res) => {
       await github.patch(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/refs/heads/${branch}`, {
         sha: newCommit.sha
       });
-  
-      res.json({ message: `File committed to ${branch} branch` });
+
+      //Append to records.json
+      const record = {
+        sha: newCommit.data.sha,
+        file: files[0],
+        message: message,
+        branch: 'dev',
+        date: now
+      };
+
+      let records = [];
+      if (await fs.pathExists(RECORDS_FILE)) {
+        records = await fs.readJSON(RECORDS_FILE);
+      }
+
+      records.push(record);
+      await fs.writeJSON(RECORDS_FILE, records, { spaces: 2 });
+
+      res.json(record);
     } catch (err) {
       console.error(err.response?.data || err.message);
       res.status(500).json({ error: err.message });
@@ -155,6 +173,54 @@ app.post('/git/commit/dev', async (req, res) => {
 });
 
 // Merge Dev to UAT
+app.post('/git/promote/dev-to-uat/selected', async (req, res) => {
+  try {
+    const { selectedShas: commits } = req.body; // Array of SHAs to promote (max 1 at a time via merge)
+
+  if (!selectedShas || !Array.isArray(selectedShas) || selectedShas.length === 0) {
+    return res.status(400).json({ error: 'No SHAs provided' });
+  }
+  
+  let records = [];
+
+  for (const sha of selectedShas) {
+    try {
+        const commit_essentials = {
+          base: 'UAT',
+          head: sha,
+          commit_message: `Promote commit ${sha} to UAT`
+        };
+        const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`,commit_essentials);
+
+        //Append to records.json
+        const record = {
+          sha: commit_essentials?.sha,
+          file: "same as dev",
+          message: commit_essentials?.commit_message,
+          branch: commit_essentials?.head,
+          date: now
+        };
+
+        if (await fs.pathExists(RECORDS_FILE)) {
+          records = await fs.readJSON(RECORDS_FILE);
+        }
+
+        records.push(record);
+        await fs.writeJSON(RECORDS_FILE, records, { spaces: 2 });
+
+      }catch (err) {
+        console.error(`Failed to merge ${sha}:`, err.response?.data || err.message);
+        promoted.push({ sha, merged: false, error: err.message });
+      }
+    }
+
+    res.json(records);
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.post('/git/promote/dev-to-uat', async (req, res) => {
     try {
       const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`, {
