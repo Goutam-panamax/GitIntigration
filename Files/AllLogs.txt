@@ -1,0 +1,27 @@
+const addOnboardingData = async (businessDefinationUID,requestId) => {
+
+    const businessDefinationData = await applicationBusinessDefinitionRepository.getApplicationBusinessDefinitionById({
+        UID : businessDefinationUID,
+        requestId : requestId
+    });
+    const userSegmentData = await userSegmentRepository.getUserSegmentById({
+        UserSegmentId : businessDefinationData?.UserSegmentId,
+        requestId : requestId
+    })
+    const userSegmentCredentialData = await userSegmentIdentifierCredentialsRelRepository.getUserSegmentIdentifierCredentialsRelById({
+        UserSegmentId : businessDefinationData?.UserSegmentId,
+        requestId : requestId
+    })
+    const segmentTypeMasterData = await standardMasterRepo.getStandardMasterDetailsByValue({
+        Value : userSegmentData?.SegmentType,
+        requestId : requestId
+    })
+
+    return {
+        CREDENTIALS_ONBOARDUSER : userSegmentCredentialData?.Credentials,
+        PRIMARYIDENTIFIER_ONBOARDUSER : userSegmentCredentialData?.PrimaryIdentifier,
+        USERKYCLEVEL_ONBOARDUSER   : businessDefinationData?.MobifinKycLevel,
+        MOBIFINOET_ONBOARDUSER   : businessDefinationData?.MobifinOETExID,
+        USERSEGMENT_ONBOARDUSER : segmentTypeMasterData?.UID
+    }
+}
