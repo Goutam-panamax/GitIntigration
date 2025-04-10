@@ -128,7 +128,7 @@ app.post('/git/commit/dev', async (req, res) => {
         base_tree: baseTree,
         tree: [
           {
-            path: files[0],
+            path: `Files/${files[0]}`,
             mode: '100644',
             type: 'blob',
             sha: blobData.sha
