@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
-const RECORDS_FILE = path.join(__dirname, 'records.json');
+const RECORDS_FILE = path.join(__dirname,'..','records.json');
 
 // Upload File to Files Folder
 app.post('/upload-file', upload.single('file'), (req, res) => {
@@ -182,6 +182,7 @@ app.post('/git/promote/dev-to-uat/selected', async (req, res) => {
   }
   
   let records = [];
+  let record = {};
 
   for (const sha of selectedShas) {
     try {
@@ -193,7 +194,7 @@ app.post('/git/promote/dev-to-uat/selected', async (req, res) => {
         const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`,commit_essentials);
 
         //Append to records.json
-        const record = {
+        record = {
           sha: commit_essentials?.sha,
           file: "same as dev",
           message: commit_essentials?.commit_message,
@@ -214,7 +215,7 @@ app.post('/git/promote/dev-to-uat/selected', async (req, res) => {
       }
     }
 
-    res.json(records);
+    res.json(record);
   } catch (err) {
     console.error(err.response?.data || err.message);
     res.status(500).json({ error: err.message });
