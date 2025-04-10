@@ -107,7 +107,6 @@ app.post('/git/commit/dev/all', async (req, res) => {
 app.post('/git/commit/dev', async (req, res) => {
     const { message, files = ['.'] } = req.body;
     const filePath = path.join(__dirname,'Files',files[0]);
-    console.log("filePath ",filePath)
     const content = fs.readFileSync(filePath, 'utf8');
     const branch = 'dev';
   
@@ -129,7 +128,7 @@ app.post('/git/commit/dev', async (req, res) => {
         base_tree: baseTree,
         tree: [
           {
-            path: filePath,
+            path: files[0],
             mode: '100644',
             type: 'blob',
             sha: blobData.sha
