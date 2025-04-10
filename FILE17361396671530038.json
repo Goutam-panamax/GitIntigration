@@ -1,0 +1,194 @@
+{
+  "Adapter API": [
+    {
+      "Name": "Sample Workflow 3",
+      "ExternalId": "SAMPLE_WORKFLOW_3_1",
+      "ContextPath": "sample_Workflow_3",
+      "Description": "Description of the sample workflow",
+      "HTTPMethod": "API_HTTP_METHOD_POST",
+      "AllowedGrantTypes": "PASSWORD_GRANT_TYPE",
+      "UseCaseExId": "TOPUP_2_MOBIFINTAPESTRY",
+      "IsEventHistoryEnable": "No",
+      "IsAMLEnable": "No",
+      "IsPaymentAPI": "No",
+      "Status": 0
+    }
+  ],
+  "FieldMapping": [
+    {
+      "MappingName": "Sample Workflow 3",
+      "FieldMappingExternalId": "SAMPLE_WORKFLOW_3_1",
+      "FieldMappingRelReferenceKey": 100,
+      "UsedBy": "FIELD_MAPPING_USED_BY_ADAPTER"
+    }
+  ],
+  "FieldMappingRel": [
+    {
+      "FieldMappingRelPK": 100,
+      "APIReferenceKey": "SAMPLE_WORKFLOW_3_1"
+    }
+  ],
+  "FieldMappingDetail": [
+    {
+      "MappingDetailPK": 100,
+      "ApiField": "data",
+      "MobifinPacketField": "1.REQUEST.2.2020025",
+      "DefaultValue": null,
+      "MappingExternalId": "SAMPLE_WORKFLOW_3_1",
+      "Status": 0,
+      "MappingDetailType": "PARAMETER_FIELD_MAPPING_DETAIL_TYPE",
+      "IsMandatory": null,
+      "RegularExpression": null,
+      "ValidationMessage": null
+    }
+  ],
+  "ApiTemplate": [
+    {
+      "ApiTemplatePK": 100,
+      "APIReferenceKey": "SAMPLE_WORKFLOW_3_1",
+      "ApiTemplate": {
+        "TransactionId": "1.REQUEST.2.201002",
+        "ResponseCode": "1",
+        "ResponseMessage": "Authentication Success"
+      },
+      "UsedByExId": "USEDBY_ADAPTER",
+      "MappingType": "FIELD_MAPPING_TYPE_RESPONSE",
+      "Status": 0
+    }
+  ],
+  "FSM": [
+    {
+      "Name": "Sample Workflow 3FSM",
+      "ExternalId": "sample_Workflow_3",
+      "Description": "Sample Workflow 3FSM",
+      "EntityExternalId": "SAMPLE_WORKFLOW_3_1"
+    }
+  ],
+  "FSM Version": [
+    {
+      "Description": "",
+      "VersionNumber": 1,
+      "FSMExternalId": "sample_Workflow_3"
+    }
+  ],
+  "FSMState": [
+    {
+      "FSMStateName": "ADAPTER_IDLE_SAMPLE_WORKFLOW_3_1",
+      "StateType": 1,
+      "ModuleId": "sample_Workflow_3BuildingBlock"
+    },
+    {
+      "FSMStateName": "ADAPTER_WAITING_SAMPLE_WORKFLOW_3_1",
+      "StateType": 2,
+      "ModuleId": "sample_Workflow_3BuildingBlock"
+    }
+  ],
+  "FSMRuleGroupNode": [
+    {
+      "GroupName": "Check Next Building Block Activity_18i12zz Rule Group",
+      "ExternalId": "ACTIVITY_18I12ZZ",
+      "ExecutionFlowTraversalId": null,
+      "Status": 0
+    },
+    {
+      "GroupName": "Check Next Building Block Activity_1n2fg80 Rule Group",
+      "ExternalId": "ACTIVITY_1N2FG80",
+      "ExecutionFlowTraversalId": null,
+      "Status": 0
+    }
+  ],
+  "FSMRule": [
+    {
+      "FSMRulePK": 100,
+      "Expression": "1.REQUEST.2.NextBuildingBlockUniqueId = Activity_18i12zz",
+      "RuleGroupNodeExternalId": "ACTIVITY_18I12ZZ",
+      "Status": 0
+    },
+    {
+      "FSMRulePK": 100,
+      "Expression": "1.REQUEST.2.NextBuildingBlockUniqueId = Activity_1n2fg80",
+      "RuleGroupNodeExternalId": "ACTIVITY_18I12ZZ",
+      "Status": 0
+    }
+  ],
+  "FSMActionGroupNode": [
+    {
+      "GroupName": "Adapter_Idle_NonConditionActionGroup_Authentication_Activity_18i12zz_ActionGroup",
+      "ExternalId": "AUTHENTICATION",
+      "ModuleId": "ADAPTERField of BuldingBlock",
+      "ExecutionFlowTraversalId": null,
+      "Status": 0
+    },
+    {
+      "GroupName": "Adapter_Idle_NonConditionActionGroup_Send Response_Activity_1n2fg80_ActionGroup",
+      "ExternalId": "SEND_RESPONSE",
+      "ModuleId": "ADAPTERField of BuldingBlock",
+      "ExecutionFlowTraversalId": null,
+      "Status": 0
+    }
+  ],
+  "FSMAction": [
+    {
+      "FSMActionPK": 100,
+      "ExecutionOrder": 100,
+      "ActionGroupExternalId": "AUTHENTICATION",
+      "EntityType": "SBB",
+      "Entity": 1,
+      "Description": "This SBB is used to authenticate user using password or Mpin while doing transaction.",
+      "Status": 0
+    },
+    {
+      "FSMActionPK": 101,
+      "ExecutionOrder": 101,
+      "ActionGroupExternalId": "SEND_RESPONSE",
+      "EntityType": "SBB",
+      "Entity": 2,
+      "Description": "This SBB is used to send response to client",
+      "Status": 0
+    }
+  ],
+  "FSMActionSBBInputParam": [
+    {
+      "SBBExternalId": 1,
+      "FSMActionReferenceKey": 100,
+      "InputParamPK": 100,
+      "SBBInputParamName": "CredentialExId",
+      "InputParamValue": "AUTHENTICATION.CREDENTIALTYPE_AUTHENTICATION"
+    },
+    {
+      "SBBExternalId": 1,
+      "FSMActionReferenceKey": 100,
+      "InputParamPK": 101,
+      "SBBInputParamName": "UserPassword",
+      "InputParamValue": "AUTHENTICATION.CREDENTIALS_AUTHENTICATION"
+    },
+    {
+      "SBBExternalId": 1,
+      "FSMActionReferenceKey": 100,
+      "InputParamPK": 102,
+      "SBBInputParamName": "UserIdentifier",
+      "InputParamValue": "AUTHENTICATION.USERIDENTIFIER_AUTHENTICATION"
+    },
+    {
+      "SBBExternalId": 2,
+      "FSMActionReferenceKey": 101,
+      "InputParamPK": 100,
+      "SBBInputParamName": "APITemplate",
+      "InputParamValue": "SENDRESPONSE.RESPONSEDATA_SENDRESPONSE"
+    }
+  ],
+  "FSMActionSBBRestrictions": [
+    {
+      "FSMActionReferenceKey": 100,
+      "Expression": "TransactionId_Activity_18i12zz_ResponseCode < 1",
+      "ExpressionOrder": 1,
+      "Status": 0
+    },
+    {
+      "FSMActionReferenceKey": 101,
+      "Expression": "TransactionId_Activity_1n2fg80_ResponseCode < 1",
+      "ExpressionOrder": 2,
+      "Status": 0
+    }
+  ]
+}
