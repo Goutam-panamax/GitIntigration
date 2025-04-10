@@ -176,7 +176,7 @@ app.post('/git/commit/dev', async (req, res) => {
 // Merge Dev to UAT
 app.post('/git/promote/dev-to-uat/selected', async (req, res) => {
   try {
-    const { selectedShas: commits } = req.body; // Array of SHAs to promote (max 1 at a time via merge)
+    const { selectedShas } = req.body; // Array of SHAs to promote (max 1 at a time via merge)
 
   if (!selectedShas || !Array.isArray(selectedShas) || selectedShas.length === 0) {
     return res.status(400).json({ error: 'No SHAs provided' });
