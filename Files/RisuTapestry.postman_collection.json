@@ -1,0 +1,5845 @@
+{
+	"info": {
+		"_postman_id": "c07d98a4-18ea-4713-beee-26280dd63552",
+		"name": "RisuTapestry",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39156308"
+	},
+	"item": [
+		{
+			"name": "Application",
+			"item": [
+				{
+					"name": "application",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/application",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"application"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "application by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/application/16781111",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"application",
+								"16781111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "statusCheck",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/application/checkStatus/1485",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"application",
+								"checkStatus",
+								"1485"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"My 2172025 Bulk  app BE\",\r\n    \"Description\": \"Fintech Wallet Sample Template 1472025\",\r\n    \"HTraversalOrder\": 2,\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"Fintech Wallet Sample Template 272025\\\"}\",\r\n    \"DomainType\": \"1\",\r\n    \"TemplateId\": 177,//177\r\n    \"Currency\": {\r\n        \"currencyCodeNumber\": 840,\r\n        \"currencyAlias\": \"USD\",\r\n        \"id\": 5\r\n    },\r\n    \"Timezone\": {\r\n        \"zone\": \"America/New_York\",\r\n        \"id\": 553\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/application",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"application"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dropdown",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/application/dropdown",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"application",
+								"dropdown"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Application",
+			"item": [
+				{
+					"name": "create Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Test 582025 7 BE\",\r\n    \"Description\": \"582025\",\r\n    \"HTraversalOrder\": 2,\r\n    \"DisplayNameML\": \"{\\\"en-ES\\\": \\\"english\\\", \\\"en-E2\\\": \\\"english2\\\"}\",\r\n    \"DomainType\": \"1\",\r\n    \"TemplateId\": 177,//177,191\r\n    \"Currency\": {\r\n        \"currencyCodeNumber\": 971,\r\n        \"currencyAlias\": \"AFN\",\r\n        \"id\": 2\r\n    },\r\n    \"Timezone\": {\r\n        \"zone\": \"Etc/GMT+8\",\r\n        \"id\": 4\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/application",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"application"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "applicationAccessInterface",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Acess Interface Test 2\",\r\n    \"SessionIdleDuration\": 86400,\r\n    \"SessionIdleDurationType\": 0,\r\n    \"IsExpiryEnable\": 0,\r\n    \"SessionExpiryDuration\": \"86400\",\r\n    \"SessionExpiryDurationType\": 0,\r\n    \"ApplicationId\": 1090\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/application/settings/applicationAccessInterface",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"application",
+								"settings",
+								"applicationAccessInterface"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all Applications",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Test Application 30\",\r\n    \"Description\": \"Test Application 30 Desc\",\r\n    \"HTraversalOrder\": 2,\r\n    \"DisplayNameML\": \"{\\\"en-ES\\\": \\\"english\\\"}\",\r\n    \"DomainType\": \"Test\",\r\n    \"TemplateId\":0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/application?Name.contains=AB12345",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"application"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "30",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "30",
+									"disabled": true
+								},
+								{
+									"key": "Name.contains",
+									"value": "AB12345"
+								},
+								{
+									"key": "Status.equals",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single Application",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Test Application 30\",\r\n    \"Description\": \"Test Application 30 Desc\",\r\n    \"HTraversalOrder\": 2,\r\n    \"DisplayNameML\": \"{\\\"en-ES\\\": \\\"english\\\"}\",\r\n    \"DomainType\": \"Test\",\r\n    \"TemplateId\":0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/application/378",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"application",
+								"378"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ApplicationRoleManage",
+			"item": [
+				{
+					"name": "CreateApplicationRoleManage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"EntityType\":2,\r\n\"EntityId\":1,\r\n\"ApplicationId\":1,\r\n\"RoleId\":1,\r\n\"Status\":0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/hierarchy-manage-role",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"hierarchy-manage-role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getApplicationRoleManageById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/hierarchy-manage-role/1",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"hierarchy-manage-role",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getApplicationRoleManageAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/hierarchy-manage-role",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"hierarchy-manage-role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteApplicationRoleManage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/hierarchy-manage-role/1",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"hierarchy-manage-role",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateApplicationRoleManage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"EntityAppRoleId\": 1,\r\n    \"EntityType\": 2,\r\n    \"EntityId\": 1,\r\n    \"ApplicationId\": 1,\r\n    \"RoleId\": 2,\r\n    \"Status\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/hierarchy-manage-role/1",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"hierarchy-manage-role",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuildingBlocks",
+			"item": [
+				{
+					"name": "get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/building-blocks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"building-blocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDetails by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/building-blocks/330",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"building-blocks",
+								"330"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Collection",
+			"item": [
+				{
+					"name": ":ApplicationId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/collection/1187",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"collection",
+								"1187"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "collection/id/6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/collection/id/527",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"collection",
+								"id",
+								"527"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkDeleteDependency",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/collection/checkDeleteDependency",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"collection",
+								"checkDeleteDependency"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "collection",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Collection 4\",\r\n    \"Description\": \"Collection 23\",\r\n    \"Status\": 10,\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"Collection 3\\\"}\",\r\n    \"ApplicationId\":1187\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/collection",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "collection/id/:CollectionID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Rkps 1\",\r\n    \"UID\": \"RKPS_193_MOBIFINTAPESTRY 123\",\r\n    \"Description\": \"Collection1 3111\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"Collection 3111\\\"}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/collection/id/527",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"collection",
+								"id",
+								"527"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "collection/id/4",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/collection/id/483",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"collection",
+								"id",
+								"483"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/sub-org?filter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Password\": \"SInghle@121\",\r\n    \"NewPassword\": \"Halme@121\",\r\n    \"UserStatus\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/collection/1187?page=m&limit=10&Name.contains=5a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"collection",
+								"1187"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "m"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "Name.contains",
+									"value": "5a"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Counter",
+			"item": [
+				{
+					"name": "CounterPost",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Risu2\",\r\n    \"ApplicationId\": 1187,\r\n    \"MonitorUpto\":17,\r\n    \"ResetType\":-1,\r\n    \"ResetTypeUID\":\"COUNTER_RESET_TYPE_NORESET\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/counter",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"counter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CounterGet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/counter",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"counter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cache Manager",
+			"item": [
+				{
+					"name": "get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cache-manager/reloader/ALL",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cache-manager",
+								"reloader",
+								"ALL"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Charge",
+			"item": [
+				{
+					"name": "Application Charge",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"test charge 2\",\r\n    \"Description\": \"RK \",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"happyreferals\\\"}\",\r\n    \"PolicyCategory\":69,\r\n    \"CalculationType\": 1,\r\n    \"ChargeType\":597,\r\n    \"Value\":4.20,\r\n    // \"Cap\":null,\r\n    \"ApplicationId\":1652\r\n}\r\n\r\n// {\r\n//     \"ApplicationId\": 394,\r\n// \t\"CalculationType\": 2,\r\n// \t\"Cap\": \"3\",\r\n// \t\"Description\": \"test\",\r\n// \t\"DisplayNameML\": \"{\\\"en-US\\\":\\\"Zepto money\\\"}\",\r\n// \t\"Name\": \"Zepto money\",\r\n// \t\"PolicyCategory\": 64,\r\n// \t\"Value\": \"1\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/policy-manager/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"policy-manager",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Application Charge Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"test charge 1\",\r\n    \"Description\": \"RK \",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"happyreferals\\\"}\",\r\n    \"PolicyCategory\":69,\r\n    \"CalculationType\": 1,\r\n    \"ChargeType\":597,\r\n    \"Value\":4.20,\r\n    // \"Cap\":null,\r\n    \"ApplicationId\":1652\r\n}\r\n\r\n// {\r\n//     \"ApplicationId\": 394,\r\n// \t\"CalculationType\": 2,\r\n// \t\"Cap\": \"3\",\r\n// \t\"Description\": \"test\",\r\n// \t\"DisplayNameML\": \"{\\\"en-US\\\":\\\"Zepto money\\\"}\",\r\n// \t\"Name\": \"Zepto money\",\r\n// \t\"PolicyCategory\": 64,\r\n// \t\"Value\": \"1\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/policy-manager/?ApplicationId=1657",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"policy-manager",
+								""
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1657"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dynamic-query",
+			"item": [
+				{
+					"name": "process",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"EntityId\":94,\"Module\":1,\"DynamicData\":{\"ApplicationId\":646}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dynamic-query/process",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dynamic-query",
+								"process"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dynamic Query",
+			"item": [
+				{
+					"name": "create Dynamic Query",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TapestryToken}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"EntityId\": 38,\r\n    \"Module\": 1,\r\n    \"Query\": \"select * from TBLMApplicationRevenuePolicy where Status != 2 and Visibility = 1 and ValidToDate > now() and PolicyCategory = :PolicyCategory and ApplicationId = :ApplicationId;\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/dynamic-query/",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"dynamic-query",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Process Dynamic Query",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\"EntityId\":41,\"Module\":1,\"DynamicData\":{\"ApplicationId\":646}}\r\n{\r\n    \"EntityId\": 83,\r\n    \"Module\": 1,\r\n    \"DynamicData\": {\r\n        \"ApplicationId\": 835\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dynamic-query/process",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dynamic-query",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Dynamic Query",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/dynamic-query/",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"dynamic-query",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "ApplicationId",
+									"value": "349",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dynamic Query by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/dynamic-query/id?EntityId=37&Module=1",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"dynamic-query",
+								"id"
+							],
+							"query": [
+								{
+									"key": "EntityId",
+									"value": "37"
+								},
+								{
+									"key": "Module",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Dynamic Query by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"EntityId\": 37,\r\n    \"Module\": 1,\r\n    \"Query\": \"select * from TBLMApplicationRevenuePolicy where Status != 2 and Visibility = 1 and ValidToDate > now() and PolicyCategory = :PolicyCategory and ApplicationId = :ApplicationId;\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/dynamic-query/1",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"dynamic-query",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Dynamic Query by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/dynamic-query/3",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"dynamic-query",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ExternalAPI",
+			"item": [
+				{
+					"name": "getAPI",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/integration-blocks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration-blocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Integration Blocks By id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/integration-blocks/68",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration-blocks",
+								"68"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "File Upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "File",
+									"type": "file",
+									"src": "/D:/data/Trunk/TranData/Workflow/IMPORT_27062025_COLLECTION_1374_415/IMPORT_27062025_WORKFLOW_762_1374_415/FILE17510144810993909.bpmn"
+								},
+								{
+									"key": "FileKey",
+									"value": "Workflow",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "SubKeyType",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/file/upload?FileKey=Workflow&SubKeyType=IMPORT_27062025_COLLECTION_1374_415,EXIMPORT_27062025_WORKFLOW_762_1374_415",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "FileKey",
+									"value": "Workflow"
+								},
+								{
+									"key": "SubKeyType",
+									"value": "IMPORT_27062025_COLLECTION_1374_415,EXIMPORT_27062025_WORKFLOW_762_1374_415"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "File Upload-OpenAPI",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "File",
+									"type": "file",
+									"src": "/D:/OneDrive - Panamax Infotech Limited/Desktop/OpenAPIJSON/openapi_mobifin_sample 6.json"
+								},
+								{
+									"key": "FileKey",
+									"value": "Workflow",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "SubKeyType",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/file/upload?FileKey=OPENAPI",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "FileKey",
+									"value": "OPENAPI"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "File Upload-IMPORTEXPORT",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "File",
+									"type": "file",
+									"src": "/D:/OneDrive - Panamax Infotech Limited/Desktop/Commission Disbursement Account Onboard.bpmn"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/file/upload?FileKey=Workflow&SubKeyType=IMPORTEXPORT",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "FileKey",
+									"value": "Workflow"
+								},
+								{
+									"key": "SubKeyType",
+									"value": "IMPORTEXPORT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "File download",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FileKey\": \"Workflow\",\r\n    \"SubKeyType\": \"TEST_APP_1_USER60_COLLECTION_USERNAME60,RISU_WORKFLOW_2625_1_139_664_233\",\r\n    \"FileName\": \"FILE17496452565045059\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/file/download",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"download"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Global Data Profile Detail",
+			"item": [
+				{
+					"name": "createGDPDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Result 3rd Devision\",\r\n    \"Value\": \"30\",\r\n    \"GlobalDataProfileId\":36,\r\n    \"ApplicationId\": 1754\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/globalDataProfileDetail/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"globalDataProfileDetail",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getGDPDetailByGDPId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base.1}}/globalDataProfileDetail/9?ApplicationId=1511",
+							"host": [
+								"{{base.1}}"
+							],
+							"path": [
+								"globalDataProfileDetail",
+								"9"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1511"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getGDPDetailById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/globalDataProfileDetail/id/23?ApplicationId=1763",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"globalDataProfileDetail",
+								"id",
+								"23"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "ApplicationId",
+									"value": "1763"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateGDPDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ApplicationId\": 1754,\r\n    \"GlobalDataProfileId\":33,\r\n    \"Status\":\"0\",\r\n    \"Value\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/globalDataProfileDetail/id/30",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"globalDataProfileDetail",
+								"id",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteGDPDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base.1}}/globalDataProfileDetail/id/6?ApplicationId=1511",
+							"host": [
+								"{{base.1}}"
+							],
+							"path": [
+								"globalDataProfileDetail",
+								"id",
+								"6"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1511"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GDP EntityAccessRights",
+			"item": [
+				{
+					"name": "createEntityAccessRight",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"EntityId\": 9, //GDP id\r\n    \"Module\": 1,\r\n\t\"ApplicationId\": 1511,\r\n    \"AccessEntityAndValue\": [\r\n        {\r\n            \"AccessEntityType\": 2, //sub org type\r\n            \"AccessEntityId\": 283, // suborg id\r\n            \"AccessValue\": 15\r\n        // },\r\n        // {\r\n        //     \"AccessEntityType\": 3, //userGroup type\r\n        //     \"AccessEntityId\": 181, // userGroup id\r\n        //     \"AccessValue\": 15\r\n        // },\r\n        // {\r\n        //     \"AccessEntityType\": 4, //userGroup type\r\n        //     \"AccessEntityId\": 809, // userGroup id\r\n        //     \"AccessValue\": 15\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base.1}}/entityAccessRight/",
+							"host": [
+								"{{base.1}}"
+							],
+							"path": [
+								"entityAccessRight",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Global Data Profile",
+			"item": [
+				{
+					"name": "profileUsageReport",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/globalDataProfile/profileUsageReport/20?ApplicationId=1653",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"globalDataProfile",
+								"profileUsageReport",
+								"20"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1653"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dataUsageReport",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/globalDataProfile/dataUsageReport/21/9?ApplicationId=1610",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"globalDataProfile",
+								"dataUsageReport",
+								"21",
+								"9"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1610"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createGDP",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Result\",\r\n    \"Description\": \"Rk GDP Exam Result\",\r\n    \"Status\":\"0\",\r\n    \"ApplicationId\": 1754\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/globalDataProfile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"globalDataProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getGDPById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base.1}}/globalDataProfile/id/11?ApplicationId=1511",
+							"host": [
+								"{{base.1}}"
+							],
+							"path": [
+								"globalDataProfile",
+								"id",
+								"11"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1511"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllGDP",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/globalDataProfile/?ApplicationId=1653",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"globalDataProfile",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "ApplicationId",
+									"value": "1653"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateGDP",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Description\": \"new\",\r\n    \"ApplicationId\": 1754,\r\n    \"Status\":\"0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/globalDataProfile/id/33",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"globalDataProfile",
+								"id",
+								"33"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Integration Blocks",
+			"item": [
+				{
+					"name": "get All Integration Blocks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base}}/integration-blocks",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"integration-blocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Integration Blocks By id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/integration-blocks/68",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration-blocks",
+								"68"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "{{baseUrl}}/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = JSON.parse(pm.response.text());\r",
+									"\r",
+									"var token = responseData.Data.tokenInfo.accessToken\r",
+									"pm.environment.set(\"accessToken\", \"Basic \"+token);\r",
+									"console.log (\"token=\", token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{loginTokan}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{loginTokanBuilder}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"password\",\r\n    // Org\r\n    \"username\": \"myorgadminrk1@yopmail.com\",\r\n    \"password\": \"Rkps@192\"\r\n    // App\r\n    //    \"username\": \"risuappuser1@yopmail.com\",\r\n    // \"password\": \"Rkps@190\"\r\n    // Admin\r\n    // \"username\": \"Tapestryadmin@panamaxil.Com\",\r\n    // \"password\": \"Tapestry@admin#1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/login Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = JSON.parse(pm.response.text());\r",
+									"\r",
+									"var token = responseData.Data.tokenInfo.accessToken\r",
+									"pm.environment.set(\"forgetPWToken\", \"Basic \"+token);\r",
+									"console.log (\"token=\", token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{loginTokan}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"grant_type\": \"client_credentials\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/auth/forgotPassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{forgetPWToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"EmailAddress\": \"risuappuser1@yopmail.COM\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/forgotPassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"forgotPassword"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/auth/verifyCode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{forgetPWToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"TransactionId\": \"17528150725258443479\",\r\n    \"VerificationCode\": \"541040\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/verifyCode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"verifyCode"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/auth/logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/user/change-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"NewPassword\": \"Rkps@190\",\r\n    \"UserStatus\":1\r\n}\r\n// {\r\n//     \"NewPassword\": \"A2Singh@129\",\r\n//     \"UserStatus\":1\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/change-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/auth/userActivation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"NewPassword\": \"Rkps@190\",\r\n    \"UserStatus\":1\r\n}\r\n// {\r\n//     \"NewPassword\": \"A2Singh@129\",\r\n//     \"UserStatus\":1\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/userActivation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"userActivation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mobifin",
+			"item": [
+				{
+					"name": "FSM",
+					"item": [
+						{
+							"name": "Prepare Bulk Export-OPNEAPI",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Default_1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Block Builder:FINALSHEETCOMMISON_ONBOARD9",
+											"type": "text"
+										},
+										{
+											"key": "menuExternalId",
+											"value": "USE_CASE",
+											"type": "text"
+										},
+										{
+											"key": "action",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "importExportType",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "importTenantExId",
+											"value": "MY_372025_BULK_APP_417",
+											"type": "text"
+										},
+										{
+											"key": "importFile",
+											"type": "file",
+											"src": "/D:/data/Trunk/TranData/Workflow/FINANCIAL_1554_417/A2A_TRANSFER_983_1554_417/ZIP/FINANCIAL_1554_417_1751621867677.zip"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{mobifinurl}}/api/useCase/upload-validate-import-file",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"useCase",
+										"upload-validate-import-file"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bulk Export",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{mobifinurl}}/api/useCase/import-save",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"useCase",
+										"import-save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CheckStaus Bulk Export",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{mobifinurl}}/api/bulk-import-history?name.contains=Default_FINTECH_WALLET_SAMPLE_TEMPLATE_1_",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"bulk-import-history"
+									],
+									"query": [
+										{
+											"key": "name.contains",
+											"value": "Default_FINTECH_WALLET_SAMPLE_TEMPLATE_1_"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Others",
+					"item": [
+						{
+							"name": "Status Bulk Export",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n    \"NewPassword\": \"Rkps@190\",\r\n    \"UserStatus\":1\r\n}\r\n// {\r\n//     \"NewPassword\": \"A2Singh@129\",\r\n//     \"UserStatus\":1\r\n// }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bulk-import-history/?name.equals=DEMO_TEST_APP_2_FOODLINK_WALLET_APP_USERNAME602025-03-17_1742211708330.zip",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bulk-import-history",
+										""
+									],
+									"query": [
+										{
+											"key": "name.equals",
+											"value": "DEMO_TEST_APP_2_FOODLINK_WALLET_APP_USERNAME602025-03-17_1742211708330.zip"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CheckStaus Bulk Export Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{mobifinurl}}/api/bulk-import-history?name.contains=ADD_OPEN_API_1744359842882TEST_14_USERNAME60.ZIP",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"bulk-import-history"
+									],
+									"query": [
+										{
+											"key": "name.contains",
+											"value": "ADD_OPEN_API_1744359842882TEST_14_USERNAME60.ZIP"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bulk Export Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"ENTITY_CONFIG_TAG_REL_1744280697673.zip\",\r\n    \"externalId\": \"ENTITY_CONFIG_TAG_REL_1744280697673.ZIP\",\r\n    \"menu\": {\r\n        \"createDate\": \"2023-10-11T01:03:04\",\r\n        \"lastUpdateDate\": \"2024-03-08T02:29:01\",\r\n        \"status\": 1,\r\n        \"visibility\": 1,\r\n        \"name\": \"Tag Based Import\",\r\n        \"displayNameML\": \"{\\\"en-US\\\": \\\"Tag Based Import\\\", \\\"es-ES\\\": \\\"Importación Basada en Etiquetas\\\"}\",\r\n        \"externalId\": \"ENTITY_CONFIG_TAG_REL\",\r\n        \"description\": \"Tag Based Import\",\r\n        \"imageName\": null,\r\n        \"subMenuAllowed\": 0,\r\n        \"menuAction\": [\r\n            {\r\n                \"action\": {\r\n                    \"name\": \"View\",\r\n                    \"externalId\": \"VIEW\",\r\n                    \"actionType\": 1,\r\n                    \"description\": \"View\",\r\n                    \"binaryRepresentation\": 3,\r\n                    \"binaryValue\": 8,\r\n                    \"workflowEnable\": 1,\r\n                    \"id\": 4\r\n                },\r\n                \"url\": \"/mobifin/operation/tagmanagement/tagbasedimport\",\r\n                \"status\": 0,\r\n                \"id\": 5747\r\n            },\r\n            {\r\n                \"action\": {\r\n                    \"name\": \"Add\",\r\n                    \"externalId\": \"ADD\",\r\n                    \"actionType\": 1,\r\n                    \"description\": \"Add\",\r\n                    \"binaryRepresentation\": 0,\r\n                    \"binaryValue\": 1,\r\n                    \"workflowEnable\": 1,\r\n                    \"id\": 1\r\n                },\r\n                \"url\": \"/mobifin/operation/tagmanagement/tagbasedimport\",\r\n                \"status\": 0,\r\n                \"id\": 5746\r\n            },\r\n            {\r\n                \"action\": {\r\n                    \"name\": \"Edit\",\r\n                    \"externalId\": \"EDIT\",\r\n                    \"actionType\": 1,\r\n                    \"description\": \"Edit\",\r\n                    \"binaryRepresentation\": 1,\r\n                    \"binaryValue\": 2,\r\n                    \"workflowEnable\": 1,\r\n                    \"id\": 2\r\n                },\r\n                \"url\": \"/mobifin/operation/tagmanagement/tagbasedimport\",\r\n                \"status\": 0,\r\n                \"id\": 5745\r\n            },\r\n            {\r\n                \"action\": {\r\n                    \"name\": \"Delete\",\r\n                    \"externalId\": \"DELETE\",\r\n                    \"actionType\": 1,\r\n                    \"description\": \"Delete\",\r\n                    \"binaryRepresentation\": 2,\r\n                    \"binaryValue\": 4,\r\n                    \"workflowEnable\": 1,\r\n                    \"id\": 3\r\n                },\r\n                \"url\": \"/mobifin/operation/tagmanagement/tagbasedimport\",\r\n                \"status\": 0,\r\n                \"id\": 5749\r\n            },\r\n            {\r\n                \"action\": {\r\n                    \"name\": \"Import\",\r\n                    \"externalId\": \"IMPORT\",\r\n                    \"actionType\": 1,\r\n                    \"description\": \"Import\",\r\n                    \"binaryRepresentation\": 4,\r\n                    \"binaryValue\": 16,\r\n                    \"workflowEnable\": 1,\r\n                    \"id\": 5\r\n                },\r\n                \"url\": \"/mobifin/operation/tagmanagement/tagbasedimport\",\r\n                \"status\": 0,\r\n                \"id\": 5744\r\n            },\r\n            {\r\n                \"action\": {\r\n                    \"name\": \"Schedule\",\r\n                    \"externalId\": \"SCHEDULE\",\r\n                    \"actionType\": 3,\r\n                    \"description\": \"Schedule\",\r\n                    \"binaryRepresentation\": 8,\r\n                    \"binaryValue\": 256,\r\n                    \"workflowEnable\": 1,\r\n                    \"id\": 7\r\n                },\r\n                \"url\": \"/mobifin/operation/tagmanagement/tagbasedimport\",\r\n                \"status\": 0,\r\n                \"id\": 5748\r\n            }\r\n        ],\r\n        \"tenant\": {\r\n            \"createDate\": \"2023-07-22T06:08:12\",\r\n            \"lastUpdateDate\": \"2023-07-22T06:08:15\",\r\n            \"status\": 1,\r\n            \"visibility\": 1,\r\n            \"validFromDate\": \"2023-07-22T06:08:12\",\r\n            \"validToDate\": \"2035-12-31T15:59:59\",\r\n            \"name\": \"Global\",\r\n            \"externalId\": \"GLOBAL\",\r\n            \"entityTypeId\": null,\r\n            \"menuExternalId\": \"BUSINESS_ZONE\",\r\n            \"moduleExternalId\": \"TENANT\",\r\n            \"createdBy\": \"Administrator Administrator\",\r\n            \"updatedBy\": null,\r\n            \"isEditable\": true,\r\n            \"isDeletable\": true,\r\n            \"id\": 1\r\n        },\r\n        \"menuParam1\": null,\r\n        \"menuParam2\": null,\r\n        \"menuParam3\": null,\r\n        \"menuParam4\": null,\r\n        \"menuParam5\": null,\r\n        \"isTransactionRequestEnable\": 0,\r\n        \"menuType\": 1,\r\n        \"rule\": null,\r\n        \"menuServiceFQN\": null,\r\n        \"allowReportRedirect\": 0,\r\n        \"redirectionDetail\": null,\r\n        \"menuExternalId\": \"MENU\",\r\n        \"moduleExternalId\": \"MENU\",\r\n        \"createdBy\": null,\r\n        \"updatedBy\": null,\r\n        \"isEditable\": true,\r\n        \"isDeletable\": true,\r\n        \"id\": 42\r\n    },\r\n    \"menuExternalId\": null,\r\n    \"description\": \"Upload OpenApi Zip: ENTITY_CONFIG_TAG_REL_1744280697673.zip\",\r\n    \"fileName\": \"ENTITY_CONFIG_TAG_REL_1744283015375.zip\",\r\n    \"filePath\": \"/data/Trunk/TranData/ImportExport/CONFIG_IMPORT/ENTITY_CONFIG_TAG_REL_1744283015375.zip\",\r\n    \"status\": 1,\r\n    \"statusMessage\": \"Pending\",\r\n    \"action\": 5,\r\n    \"importExportType\": 1,\r\n    \"startTime\": null,\r\n    \"endTime\": null,\r\n    \"bulkImportOutputParameter\": [\r\n        {\r\n            \"successFileName\": null,\r\n            \"failFileName\": null,\r\n            \"archiveFilePath\": \"/data/Trunk/TranData/ImportExport/CONFIG_IMPORT/ENTITY_CONFIG_TAG_REL_1744283015375.zip\",\r\n            \"totalCount\": 0,\r\n            \"successCount\": 0,\r\n            \"failCount\": 0,\r\n            \"totalProcessedCount\": 0,\r\n            \"id\": 46235\r\n        }\r\n    ],\r\n    \"tenant\": {\r\n        \"createDate\": \"2024-11-21T01:21:16\",\r\n        \"lastUpdateDate\": \"2024-11-21T01:21:16\",\r\n        \"status\": 0,\r\n        \"visibility\": 1,\r\n        \"validFromDate\": \"2024-11-21T01:21:16\",\r\n        \"validToDate\": \"2035-12-31T15:59:59\",\r\n        \"name\": \"username60\",\r\n        \"externalId\": \"USERNAME60\",\r\n        \"entityTypeId\": null,\r\n        \"menuExternalId\": \"BUSINESS_ZONE\",\r\n        \"moduleExternalId\": \"TENANT\",\r\n        \"createdBy\": \"DefaultTapestryJhipsterUser \",\r\n        \"updatedBy\": \"DefaultTapestryJhipsterUser \",\r\n        \"isEditable\": true,\r\n        \"isDeletable\": true,\r\n        \"id\": 2150\r\n    },\r\n    \"createDate\": null,\r\n    \"lastUpdateDate\": null,\r\n    \"parentHistoryId\": 0,\r\n    \"importTenantExId\": null,\r\n    \"id\": 46362,\r\n    \"createdBy\": \"username60@mailinator.com username60@mailinator.com\",\r\n    \"updatedBy\": \"username60@mailinator.com username60@mailinator.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{mobifinurl}}/api/bulk-import",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"bulk-import"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Prepare Bulk Export-OPNEAPI Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "ENTITY_CONFIG_TAG_REL_1744280697673.zip",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Upload OpenApi Zip: ENTITY_CONFIG_TAG_REL_1744280697673.zip",
+											"type": "text"
+										},
+										{
+											"key": "menuExternalId",
+											"value": "ENTITY_CONFIG_TAG_REL",
+											"type": "text"
+										},
+										{
+											"key": "action",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "importTenantExId",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "importExportType",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "importFile",
+											"type": "file",
+											"src": "/D:/OneDrive - Panamax Infotech Limited/Desktop/current zip/New folder/ENTITY_CONFIG_TAG_REL_1744280697787/ENTITY_CONFIG_TAG_REL_1744280697673.zip"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{mobifinurl}}/api/upload-import-file",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"upload-import-file"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Status Bulk Export Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n    \"NewPassword\": \"Rkps@190\",\r\n    \"UserStatus\":1\r\n}\r\n// {\r\n//     \"NewPassword\": \"A2Singh@129\",\r\n//     \"UserStatus\":1\r\n// }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bulk-import-history/?name.equals=DEMO_TEST_APP_2_FOODLINK_WALLET_APP_USERNAME602025-03-17_1742211708330.zip",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bulk-import-history",
+										""
+									],
+									"query": [
+										{
+											"key": "name.equals",
+											"value": "DEMO_TEST_APP_2_FOODLINK_WALLET_APP_USERNAME602025-03-17_1742211708330.zip"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "providers get by UID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{mobifinurl}}/api/providers?externalId.equals=TEST_36_USERNAME60_PROVIDER",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"providers"
+									],
+									"query": [
+										{
+											"key": "externalId.equals",
+											"value": "TEST_36_USERNAME60_PROVIDER"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "providers UPDTAE",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 462,\r\n    \"name\": \"Test 55 Provider\",\r\n    \"status\": \"0\",\r\n    \"providerParam\": null,\r\n    \"providerDescription\": \"Test 55 Provider test\",\r\n    \"providerApiDetails\": [\r\n        {\r\n            \"id\": 1038,\r\n            \"service\": {\r\n                \"id\": 1751,\r\n                \"name\": \"userOnboarding Test 55\",\r\n                \"paymentType\": 0\r\n            },\r\n            \"providerApiName\": \"userOnboarding\",\r\n            \"providerApiDescription\": \"This api is used to onboard customer into the application..\",\r\n            \"communicationProtocol\": \"1\",\r\n            \"isoDetail\": null,\r\n            \"soapApiDetail\": null,\r\n            \"smtpApiDetail\": null,\r\n            \"providerApiParam\": null,\r\n            \"restApiDetail\": {\r\n                \"id\": 930,\r\n                \"apiUrl\": \"${1.REQUEST.2.214029}/userOnboarding\",\r\n                \"httpProtocol\": \"1\",\r\n                \"httpType\": \"2\",\r\n                \"requestType\": \"1\",\r\n                \"responseType\": \"1\",\r\n                \"filePath\": null,\r\n                \"retryTimeInterval\": null,\r\n                \"retryCount\": null\r\n            },\r\n            \"providerPendingResponseDetail\": null,\r\n            \"enablePendingManagement\": 0,\r\n            \"isAuthenticateAPI\": 0,\r\n            \"storeResponse\": 0,\r\n            \"responseExpiryTime\": null,\r\n            \"fieldMappingRel\": [\r\n                {\r\n                    \"id\": 3418,\r\n                    \"mappingId\": {\r\n                        \"id\": 3517,\r\n                        \"mappingName\": \"TEST_55_USERNAME60_PROVIDER__USERONBOARDING_TEST_55_USERNAME60_HEADER\",\r\n                        \"mappingType\": 3,\r\n                        \"fieldMappingDetails\": [\r\n                            {\r\n                                \"id\": 22433,\r\n                                \"apiField\": \"Authorization Bearer\",\r\n                                \"mappingDetailType\": null,\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201802\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22434,\r\n                                \"apiField\": \"Authorization Basic\",\r\n                                \"mappingDetailType\": null,\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201801\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": \"\",\r\n                                \"apiField\": \"Test 3\",\r\n                                \"mappingDetailType\": null,\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201800\",\r\n                                \"defaultValue\": \"\",\r\n                                \"status\": 0\r\n                            }\r\n                        ]\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 3417,\r\n                    \"mappingId\": {\r\n                        \"id\": 3516,\r\n                        \"mappingName\": \"TEST_55_USERNAME60_PROVIDER__USERONBOARDING_TEST_55_USERNAME60_REQUEST\",\r\n                        \"mappingType\": 1,\r\n                        \"fieldMappingDetails\": []\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 3419,\r\n                    \"mappingId\": {\r\n                        \"id\": 3518,\r\n                        \"mappingName\": \"TEST_55_USERNAME60_PROVIDER__USERONBOARDING_TEST_55_USERNAME60_RESPONSE\",\r\n                        \"mappingType\": 2,\r\n                        \"fieldMappingDetails\": [\r\n                            {\r\n                                \"id\": 22435,\r\n                                \"apiField\": \"EntityTemplateId\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201834\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22436,\r\n                                \"apiField\": \"EntityRequest\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201835\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22437,\r\n                                \"apiField\": \"data.transactionId\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201837\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22438,\r\n                                \"apiField\": \"externalResponseCode\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201838\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22439,\r\n                                \"apiField\": \"responseCode\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201841\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22440,\r\n                                \"apiField\": \"responseMessage\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201840\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22441,\r\n                                \"apiField\": \"externalResponseMessage\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201839\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22442,\r\n                                \"apiField\": \"data.twoFAEnable\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201836\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22443,\r\n                                \"apiField\": null,\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.214003.214017\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": \"1\",\r\n                                \"status\": 0\r\n                            }\r\n                        ]\r\n                    }\r\n                }\r\n            ],\r\n            \"timeOut\": 30000,\r\n            \"successCode\": \"1\",\r\n            \"failureCode\": \"-1000\",\r\n            \"nextProviderSelectionFailureCode\": null,\r\n            \"asynchQueueConfig\": \"<queue><queuename>VENDOR-INTEGRATION_ASYNCHQUEUEV2</queuename><queue-size>10000</queue-size><minimum-thread>5</minimum-thread><maximum-thread>10</maximum-thread><thread-priority>7</thread-priority><batch-size>50</batch-size><batch-execution-time>1000</batch-execution-time><high-level-water-mark>9000</high-level-water-mark><req-dispatcher-sleep-time>100</req-dispatcher-sleep-time><req-dispatcher-retry-count>3</req-dispatcher-retry-count><queue-alarm-percentage>10</queue-alarm-percentage></queue>\",\r\n            \"executionConfig\": {\r\n                \"providerApiId\": {\r\n                    \"id\": 1038\r\n                },\r\n                \"dependentApiList\": []\r\n            },\r\n            \"template\": {\r\n                \"mappingType\": 1,\r\n                \"apiTemplate\": \"{\\\"data\\\":{\\\"onBoardingType\\\":\\\"${1.REQUEST.2.201803}\\\",\\\"product\\\":\\\"${1.REQUEST.2.201804}\\\",\\\"requestId\\\":\\\"${1.REQUEST.2.201805}\\\",\\\"onBoardingData\\\":{\\\"userAccountData\\\":{\\\"accountCategory\\\":\\\"${1.REQUEST.2.201806}\\\",\\\"userTenantId\\\":\\\"${1.REQUEST.2.201807}\\\",\\\"accountIdentifier\\\":[{\\\"fieldData\\\":[{\\\"fieldValue\\\":\\\"${1.REQUEST.2.201808}\\\",\\\"fieldId\\\":\\\"${1.REQUEST.2.201809}\\\"}],\\\"authenticationDetails\\\":[{\\\"apiDetail\\\":\\\"${1.REQUEST.2.201810}\\\",\\\"loginPolicy\\\":\\\"${1.REQUEST.2.201811}\\\",\\\"credentialExId\\\":\\\"${1.REQUEST.2.201812}\\\"}]}],\\\"userAccountInfo\\\":{},\\\"userLanguage\\\":\\\"${1.REQUEST.2.201813}\\\",\\\"accountStatus\\\":\\\"${1.REQUEST.2.201814}\\\",\\\"roleExternalId\\\":\\\"${1.REQUEST.2.201815}\\\",\\\"parentUserTenantId\\\":\\\"${1.REQUEST.2.201816}\\\",\\\"validToDate\\\":\\\"${1.REQUEST.2.201817}\\\",\\\"userServiceProfileId\\\":\\\"${1.REQUEST.2.201818}\\\",\\\"createDate\\\":\\\"${1.REQUEST.2.201819}\\\",\\\"userEntity\\\":\\\"${1.REQUEST.2.201820}\\\",\\\"param5\\\":\\\"${1.REQUEST.2.201821}\\\",\\\"parentUserIdentifier\\\":\\\"${1.REQUEST.2.201822}\\\",\\\"Param2\\\":\\\"${1.REQUEST.2.201823}\\\",\\\"transactionPin\\\":\\\"${1.REQUEST.2.201824}\\\",\\\"param3\\\":\\\"${1.REQUEST.2.201825}\\\",\\\"param4\\\":\\\"${1.REQUEST.2.201826}\\\",\\\"param1\\\":\\\"${1.REQUEST.2.201827}\\\",\\\"kycLevel\\\":\\\"${1.REQUEST.2.201828}\\\",\\\"isSelfOnboarding\\\":\\\"${1.REQUEST.2.201829}\\\",\\\"userAccountCategoryTypeId\\\":\\\"${1.REQUEST.2.201830}\\\",\\\"validFromDate\\\":\\\"${1.REQUEST.2.201831}\\\",\\\"userEntityType\\\":\\\"${1.REQUEST.2.201832}\\\",\\\"currencyCode\\\":\\\"${1.REQUEST.2.201833}\\\"}}}}\",\r\n                \"id\": 1617\r\n            }\r\n        }\r\n    ],\r\n    \"operatingEntity\": {\r\n        \"id\": 2\r\n    },\r\n    \"providerId\": \"\",\r\n    \"menuExternalId\": \"SERVICE_PROVIDER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{mobifinurl}}/api/providers",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"providers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "providers UPDTAE Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{mobifin_token}}",
+										"type": "text"
+									},
+									{
+										"key": "MobifinAuthorizationToken",
+										"value": "{{adapter_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 462,\r\n    \"name\": \"Test 55 Provider\",\r\n    \"status\": \"0\",\r\n    \"providerParam\": null,\r\n    \"providerDescription\": \"Test 55 Provider test\",\r\n    \"providerApiDetails\": [\r\n        {\r\n            \"id\": 1038,\r\n            \"service\": {\r\n                \"id\": 1751,\r\n                \"name\": \"userOnboarding Test 55\",\r\n                \"paymentType\": 0\r\n            },\r\n            \"providerApiName\": \"userOnboarding\",\r\n            \"providerApiDescription\": \"This api is used to onboard customer into the application..\",\r\n            \"communicationProtocol\": \"1\",\r\n            \"isoDetail\": null,\r\n            \"soapApiDetail\": null,\r\n            \"smtpApiDetail\": null,\r\n            \"providerApiParam\": null,\r\n            \"restApiDetail\": {\r\n                \"id\": 930,\r\n                \"apiUrl\": \"${1.REQUEST.2.214029}/userOnboarding\",\r\n                \"httpProtocol\": \"1\",\r\n                \"httpType\": \"2\",\r\n                \"requestType\": \"1\",\r\n                \"responseType\": \"1\",\r\n                \"filePath\": null,\r\n                \"retryTimeInterval\": null,\r\n                \"retryCount\": null\r\n            },\r\n            \"providerPendingResponseDetail\": null,\r\n            \"enablePendingManagement\": 0,\r\n            \"isAuthenticateAPI\": 0,\r\n            \"storeResponse\": 0,\r\n            \"responseExpiryTime\": null,\r\n            \"fieldMappingRel\": [\r\n                {\r\n                    \"id\": 3418,\r\n                    \"mappingId\": {\r\n                        \"id\": 3517,\r\n                        \"mappingName\": \"TEST_55_USERNAME60_PROVIDER__USERONBOARDING_TEST_55_USERNAME60_HEADER\",\r\n                        \"mappingType\": 3,\r\n                        \"fieldMappingDetails\": [\r\n                            {\r\n                                \"id\": 22433,\r\n                                \"apiField\": \"Authorization Bearer\",\r\n                                \"mappingDetailType\": null,\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201802\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22434,\r\n                                \"apiField\": \"Authorization Basic\",\r\n                                \"mappingDetailType\": null,\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201801\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": \"\",\r\n                                \"apiField\": \"Test 3\",\r\n                                \"mappingDetailType\": null,\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201800\",\r\n                                \"defaultValue\": \"\",\r\n                                \"status\": 0\r\n                            }\r\n                        ]\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 3417,\r\n                    \"mappingId\": {\r\n                        \"id\": 3516,\r\n                        \"mappingName\": \"TEST_55_USERNAME60_PROVIDER__USERONBOARDING_TEST_55_USERNAME60_REQUEST\",\r\n                        \"mappingType\": 1,\r\n                        \"fieldMappingDetails\": []\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": 3419,\r\n                    \"mappingId\": {\r\n                        \"id\": 3518,\r\n                        \"mappingName\": \"TEST_55_USERNAME60_PROVIDER__USERONBOARDING_TEST_55_USERNAME60_RESPONSE\",\r\n                        \"mappingType\": 2,\r\n                        \"fieldMappingDetails\": [\r\n                            {\r\n                                \"id\": 22435,\r\n                                \"apiField\": \"EntityTemplateId\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201834\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22436,\r\n                                \"apiField\": \"EntityRequest\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201835\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22437,\r\n                                \"apiField\": \"data.transactionId\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201837\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22438,\r\n                                \"apiField\": \"externalResponseCode\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201838\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22439,\r\n                                \"apiField\": \"responseCode\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201841\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22440,\r\n                                \"apiField\": \"responseMessage\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201840\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22441,\r\n                                \"apiField\": \"externalResponseMessage\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201839\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22442,\r\n                                \"apiField\": \"data.twoFAEnable\",\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.201836\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": null,\r\n                                \"status\": 0\r\n                            },\r\n                            {\r\n                                \"id\": 22443,\r\n                                \"apiField\": null,\r\n                                \"mobifinPacketField\": \"1.REQUEST.2.214003.214017\",\r\n                                \"mappingDetailType\": \"1\",\r\n                                \"defaultValue\": \"1\",\r\n                                \"status\": 0\r\n                            }\r\n                        ]\r\n                    }\r\n                }\r\n            ],\r\n            \"timeOut\": 30000,\r\n            \"successCode\": \"1\",\r\n            \"failureCode\": \"-1000\",\r\n            \"nextProviderSelectionFailureCode\": null,\r\n            \"asynchQueueConfig\": \"<queue><queuename>VENDOR-INTEGRATION_ASYNCHQUEUEV2</queuename><queue-size>10000</queue-size><minimum-thread>5</minimum-thread><maximum-thread>10</maximum-thread><thread-priority>7</thread-priority><batch-size>50</batch-size><batch-execution-time>1000</batch-execution-time><high-level-water-mark>9000</high-level-water-mark><req-dispatcher-sleep-time>100</req-dispatcher-sleep-time><req-dispatcher-retry-count>3</req-dispatcher-retry-count><queue-alarm-percentage>10</queue-alarm-percentage></queue>\",\r\n            \"executionConfig\": {\r\n                \"providerApiId\": {\r\n                    \"id\": 1038\r\n                },\r\n                \"dependentApiList\": []\r\n            },\r\n            \"template\": {\r\n                \"mappingType\": 1,\r\n                \"apiTemplate\": \"{\\\"data\\\":{\\\"onBoardingType\\\":\\\"${1.REQUEST.2.201803}\\\",\\\"product\\\":\\\"${1.REQUEST.2.201804}\\\",\\\"requestId\\\":\\\"${1.REQUEST.2.201805}\\\",\\\"onBoardingData\\\":{\\\"userAccountData\\\":{\\\"accountCategory\\\":\\\"${1.REQUEST.2.201806}\\\",\\\"userTenantId\\\":\\\"${1.REQUEST.2.201807}\\\",\\\"accountIdentifier\\\":[{\\\"fieldData\\\":[{\\\"fieldValue\\\":\\\"${1.REQUEST.2.201808}\\\",\\\"fieldId\\\":\\\"${1.REQUEST.2.201809}\\\"}],\\\"authenticationDetails\\\":[{\\\"apiDetail\\\":\\\"${1.REQUEST.2.201810}\\\",\\\"loginPolicy\\\":\\\"${1.REQUEST.2.201811}\\\",\\\"credentialExId\\\":\\\"${1.REQUEST.2.201812}\\\"}]}],\\\"userAccountInfo\\\":{},\\\"userLanguage\\\":\\\"${1.REQUEST.2.201813}\\\",\\\"accountStatus\\\":\\\"${1.REQUEST.2.201814}\\\",\\\"roleExternalId\\\":\\\"${1.REQUEST.2.201815}\\\",\\\"parentUserTenantId\\\":\\\"${1.REQUEST.2.201816}\\\",\\\"validToDate\\\":\\\"${1.REQUEST.2.201817}\\\",\\\"userServiceProfileId\\\":\\\"${1.REQUEST.2.201818}\\\",\\\"createDate\\\":\\\"${1.REQUEST.2.201819}\\\",\\\"userEntity\\\":\\\"${1.REQUEST.2.201820}\\\",\\\"param5\\\":\\\"${1.REQUEST.2.201821}\\\",\\\"parentUserIdentifier\\\":\\\"${1.REQUEST.2.201822}\\\",\\\"Param2\\\":\\\"${1.REQUEST.2.201823}\\\",\\\"transactionPin\\\":\\\"${1.REQUEST.2.201824}\\\",\\\"param3\\\":\\\"${1.REQUEST.2.201825}\\\",\\\"param4\\\":\\\"${1.REQUEST.2.201826}\\\",\\\"param1\\\":\\\"${1.REQUEST.2.201827}\\\",\\\"kycLevel\\\":\\\"${1.REQUEST.2.201828}\\\",\\\"isSelfOnboarding\\\":\\\"${1.REQUEST.2.201829}\\\",\\\"userAccountCategoryTypeId\\\":\\\"${1.REQUEST.2.201830}\\\",\\\"validFromDate\\\":\\\"${1.REQUEST.2.201831}\\\",\\\"userEntityType\\\":\\\"${1.REQUEST.2.201832}\\\",\\\"currencyCode\\\":\\\"${1.REQUEST.2.201833}\\\"}}}}\",\r\n                \"id\": 1617\r\n            }\r\n        }\r\n    ],\r\n    \"operatingEntity\": {\r\n        \"id\": 2\r\n    },\r\n    \"providerId\": \"\",\r\n    \"menuExternalId\": \"SERVICE_PROVIDER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{mobifinurl}}/api/providers",
+									"host": [
+										"{{mobifinurl}}"
+									],
+									"path": [
+										"api",
+										"providers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login mobifin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = JSON.parse(pm.response.text());\r",
+									"var mobifin_token =`Bearer  ${responseData.id_token}`;\r",
+									"var adapter_token = `Bearer ${responseData.mobifinResponse.data.access_token}`;\r",
+									"pm.environment.set(\"mobifin_token\", mobifin_token);\r",
+									"pm.environment.set(\"adapter_token\", adapter_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic VEFQRVNUUllfQURNSU46QWRtaW5AVGFwZXN0cnkjMjU0Nzg5NjU=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grantType\": \"password\",\n    //   \"username\": \"tapestryadmin@panamaxil.com\",\n    //   \"password\": \"Tapestry@admin#1\",\n    //   \"username\": \"username60@mailinator.com\",\n    //   \"password\": \"Admin@13\",\n    \"password\": \"Rkps@192\",\n    \"username\": \"risusinghorgadmin@yopmail.com\",\n    // \"username\": \"risusinghorg1@yopmail.com\",\n    \"entityType\": \"SYSTEMOPERATIONALENTITY\",\n    \"timeZone\": {\n        \"id\": \"\"\n    },\n    \"userDetail\": \"false\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{mobifinurl}}/api/authenticate",
+							"host": [
+								"{{mobifinurl}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Menu",
+			"item": [
+				{
+					"name": "{{baseUrl}}/menu",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/menu",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"menu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMenuDetailByRoleType/2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/menu/getMenuDetailByRoleType/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"menu",
+								"getMenuDetailByRoleType",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMenuGUIAction",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/menu/getMenuGUIAction",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"menu",
+								"getMenuGUIAction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginUserMenu",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/menu/loginUserMenu",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"menu",
+								"loginUserMenu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "child-menu by pid",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/menu/child-menu/390",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"menu",
+								"child-menu",
+								"390"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MAnage Role Hierarchy",
+			"item": [
+				{
+					"name": "hierarchy-manage-role",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"1\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"1\\\"}\",\r\n    \"Description\": \"1123\",\r\n    \"UID\": \"1234\",\r\n    \"Status\": 1,\r\n    \"RoleType\": 1,\r\n    \"RoleOwnership\": \"1\",\r\n    \"listRoleMenuValue\": [\r\n        {\r\n            \"menu\": 379,\r\n            \"value\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/hierarchy-manage-role/1?type=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hierarchy-manage-role",
+								"1"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hierarchy-manage-role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"EntityType\": 2,\r\n    \"EntityId\": 286, //OrgID-427, SubOrg-286\r\n    \"RoleAndApplication\": [\r\n        {\r\n            \"ApplicationId\": 1617, //1617, //1128,\r\n            \"RoleId\": 953, //952 123 952\r\n            \"Status\": 0\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/hierarchy-manage-role",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hierarchy-manage-role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/role/dropdown",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"tapestryadmin 123\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"dsdsdsdd\\\"}\",\r\n    \"Description\": \"asasasasas\",\r\n    \"Status\": 1,\r\n    \"RoleType\": 1,\r\n    \"RoleOwnership\": \"1\",\r\n    \"listRoleMenuValue\": [\r\n        {\r\n            \"menu\": 370,\r\n            \"value\": 1\r\n        },\r\n        {\r\n            \"menu\": 371,\r\n            \"value\": 6\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/dropdown?Name=a&limit=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"dropdown"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "a"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/role/1000",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/418",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"418"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Role Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Abc 418 updated\",\r\n    \"Description\": \"aaa bbb\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"tapestryadmin\\\"}\",\r\n    \"Status\": 1,\r\n    \"RoleType\": 2,\r\n    \"RoleOwnership\": \"2\",\r\n    \"listRoleMenuValue\": [\r\n        {\r\n            \"menu\": 389,\r\n            \"value\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/952",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"952"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/role/checkDeleteDependency",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/checkDeleteDependency/394",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"checkDeleteDependency",
+								"394"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Open API",
+			"item": [
+				{
+					"name": "Open API Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OpenAPIFile\": \"FILE17521450116598181\",\r\n    \"IntegrationId\": 422\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/integration/openAPI",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"openAPI"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OpenAPIFile\": \"FILE17521450116598181\",\r\n    \"IntegrationId\": 422,\r\n    \"ApiUrls\": [\r\n        {\r\n            \"IntegrationApiId\": 1427,\r\n            \"ApiUrl\": \"/userOnboarding\",\r\n            \"BlockName\": \"UserOnboarding\",\r\n            \"Type\": 2\r\n        },\r\n        {\r\n            \"IntegrationApiId\": 0,\r\n            \"ApiUrl\": \"/userOnboarding\",\r\n            \"BlockName\": \"UserOnboarding\",\r\n            \"Type\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/integration/openAPI/addService",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"openAPI",
+								"addService"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create vendor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// 1. Create a vender===================================>/createVendor\r\n// 2. Upload Opne API JSON file\r\n// 3. POST openAPI to get ExisitingApis and NewApis array======>/openAPI\r\n// 4. Add servide==================================>/openAPI/addService/v2\r\n{\r\n    \"VendorName\": \"Test 1472025 Risu 1\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\": \\\"Test\\\"}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/integration/createVendor",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"createVendor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all vendors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"VendorName\": \"V 5\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\": \\\"Vendor Name\\\"}\",\r\n    \"Description\": \"D 1\",\r\n    \"Timeout\": 60000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/integration/openAPI/vendors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"openAPI",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OpenAPIFile\": \"FILE17521311137628955\",\r\n    \"IntegrationId\": 392,\r\n    \"ApiUrls\": [\r\n        {\r\n            \"IntegrationApiId\": 0,\r\n            \"ApiUrl\": \"/processUSSDRequestGetSMS\",\r\n            \"ServiceName\": \"ProcessUSSDRequestGetSMS\",\r\n            \"Type\": 1\r\n        }\r\n        //  {\r\n        //     \"IntegrationApiId\": 1327,\r\n        //     \"ApiUrl\": \"/userOnboarding\",\r\n        //     \"ServiceName\": \"UserOnboarding\",\r\n        //     \"Type\": 2\r\n        // },\r\n        // {\r\n        //     \"IntegrationApiId\": 1325,\r\n        //     \"ApiUrl\": \"/updateSecurityQuestions\",\r\n        //     \"ServiceName\": \"UpdateSecurityQuestions\",\r\n        //     \"Type\": 2\r\n        // },\r\n        // {\r\n        //     \"IntegrationApiId\": 1326,\r\n        //     \"ApiUrl\": \"/processUSSDRequestGetSMS\",\r\n        //     \"ServiceName\": \"processUSSDRequestGetSMS\",\r\n        //     \"Type\": 1\r\n        // },\r\n        // {\r\n        //     \"IntegrationApiId\": 1324,\r\n        //     \"ApiUrl\": \"/systemOperatorOnboarding\",\r\n        //     \"ServiceName\": \"SystemOperatorOnboarding\",\r\n        //     \"Type\": 2\r\n        // }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/integration/openAPI/addService",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"openAPI",
+								"addService"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IntegrationDetailsGetByID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/integration/integrationAPI/398/1346",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"integrationAPI",
+								"398",
+								"1346"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IntegrationDetailsGetByID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Data\": {\r\n        \"REQUEST\": {\r\n            \"Request\": {\r\n                \"data\": {\r\n                    \"product\": null,\r\n                    \"requestId\": null,\r\n                    \"onBoardingData\": {\r\n                        \"userAccountData\": {\r\n                            \"Param2\": null,\r\n                            \"param1\": null,\r\n                            \"param3\": null,\r\n                            \"param4\": null,\r\n                            \"param5\": null,\r\n                            \"kycLevel\": null,\r\n                            \"createDate\": null,\r\n                            \"userEntity\": null,\r\n                            \"validToDate\": null,\r\n                            \"currencyCode\": null,\r\n                            \"userLanguage\": null,\r\n                            \"userTenantId\": null,\r\n                            \"accountStatus\": null,\r\n                            \"validFromDate\": null,\r\n                            \"roleExternalId\": null,\r\n                            \"transactionPin\": null,\r\n                            \"userEntityType\": null,\r\n                            \"accountCategory\": null,\r\n                            \"userAccountInfo\": {},\r\n                            \"isSelfOnboarding\": null,\r\n                            \"accountIdentifier\": [\r\n                                {\r\n                                    \"fieldData\": [\r\n                                        {\r\n                                            \"fieldId\": null,\r\n                                            \"fieldValue\": null\r\n                                        }\r\n                                    ],\r\n                                    \"authenticationDetails\": [\r\n                                        {\r\n                                            \"mohit\": null,\r\n                                            \"apiDetail\": null,\r\n                                            \"loginPolicy\": null,\r\n                                            \"credentialExId\": null\r\n                                        }\r\n                                    ]\r\n                                }\r\n                            ],\r\n                            \"parentUserTenantId\": null,\r\n                            \"parentUserIdentifier\": null,\r\n                            \"userServiceProfileId\": null,\r\n                            \"userAccountCategoryTypeId\": null\r\n                        }\r\n                    },\r\n                    \"onBoardingType\": null\r\n                }\r\n            },\r\n            \"ApiRequestId\": 1021\r\n        },\r\n        \"RESPONSE\": [\r\n            {\r\n                \"ApiParameterId\": 25118,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"EntityTemplateId\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"EntityTemplateId\"\r\n                },\r\n                \"UID\": \"ENTITYTEMPLATEID_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"EntityTemplateId\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201803\",\r\n                \"MobifinPacketFieldName\": \"ParamStr3\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38393\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25119,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"EntityRequest\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"EntityRequest\"\r\n                },\r\n                \"UID\": \"ENTITYREQUEST_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"EntityRequest\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201804\",\r\n                \"MobifinPacketFieldName\": \"ParamStr4\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38403\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25120,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"EntityRequest1\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"EntityRequest1\"\r\n                },\r\n                \"UID\": \"ENTITYREQUEST1_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"EntityRequest1\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201805\",\r\n                \"MobifinPacketFieldName\": \"ParamStr5\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38394\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25121,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"data.twoFAEnable\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"data.twoFAEnable\"\r\n                },\r\n                \"UID\": \"DATA_TWOFAENABLE_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"data.twoFAEnable\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201806\",\r\n                \"MobifinPacketFieldName\": \"ParamStr6\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38399\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25122,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"data.transactionId\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"data.transactionId\"\r\n                },\r\n                \"UID\": \"DATA_TRANSACTIONID_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"data.transactionId\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201807\",\r\n                \"MobifinPacketFieldName\": \"ParamStr7\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38398\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25123,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"externalResponseCode\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"externalResponseCode\"\r\n                },\r\n                \"UID\": \"EXTERNALRESPONSECODE_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"externalResponseCode\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201808\",\r\n                \"MobifinPacketFieldName\": \"ParamStr8\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38396\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25124,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"externalResponseMessage\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"externalResponseMessage\"\r\n                },\r\n                \"UID\": \"EXTERNALRESPONSEMESSAGE_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"externalResponseMessage\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201809\",\r\n                \"MobifinPacketFieldName\": \"ParamStr9\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38391\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25125,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"responseMessage\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"responseMessage\"\r\n                },\r\n                \"UID\": \"RESPONSEMESSAGE_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"responseMessage\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201810\",\r\n                \"MobifinPacketFieldName\": \"ParamStr10\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:52.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38395\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25126,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"responseCode\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"responseCode\"\r\n                },\r\n                \"UID\": \"RESPONSECODE_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"responseCode\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201811\",\r\n                \"MobifinPacketFieldName\": \"ParamStr11\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38400\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25127,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"data.AccountIdentifierDetails\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"data.AccountIdentifierDetails\"\r\n                },\r\n                \"UID\": \"DATA_ACCOUNTIDENTIFIERDETAILS_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"data.AccountIdentifierDetails\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201601\",\r\n                \"MobifinPacketFieldName\": \"ParamJsonArray1\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38392\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25128,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"data.AccountIdentifierDetails1\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"data.AccountIdentifierDetails1\"\r\n                },\r\n                \"UID\": \"DATA_ACCOUNTIDENTIFIERDETAILS1_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"data.AccountIdentifierDetails1\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201602\",\r\n                \"MobifinPacketFieldName\": \"ParamJsonArray2\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38397\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25129,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"data.AccountIdentifierDetails2\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"data.AccountIdentifierDetails2\"\r\n                },\r\n                \"UID\": \"DATA_ACCOUNTIDENTIFIERDETAILS2_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"data.AccountIdentifierDetails2\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201603\",\r\n                \"MobifinPacketFieldName\": \"ParamJsonArray3\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38390\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25130,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"data.AccountIdentifierDetails3\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"data.AccountIdentifierDetails3\"\r\n                },\r\n                \"UID\": \"DATA_ACCOUNTIDENTIFIERDETAILS3_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"data.AccountIdentifierDetails3\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201604\",\r\n                \"MobifinPacketFieldName\": \"ParamJsonArray4\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38402\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25131,\r\n                \"MappingType\": 2,\r\n                \"Name\": \"data.Risu\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"data.Risu\"\r\n                },\r\n                \"UID\": \"DATA_RISU_USERONBOARDING4_1338_392_414_RESPONSE\",\r\n                \"Key\": \"data.Risu\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201605\",\r\n                \"MobifinPacketFieldName\": \"ParamJsonArray5\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:53.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38401\r\n            }\r\n        ],\r\n        \"HEADER\": [\r\n            {\r\n                \"ApiParameterId\": 25116,\r\n                \"MappingType\": 3,\r\n                \"Name\": \"Authorization Basic\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"Authorization Basic\"\r\n                },\r\n                \"UID\": \"AUTHORIZATION_BASIC_USERONBOARDING4_1338_392_414_HEADER\",\r\n                \"Key\": \"Authorization Basic\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201801\",\r\n                \"MobifinPacketFieldName\": \"ParamStr1\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38389\r\n            },\r\n            {\r\n                \"ApiParameterId\": 25117,\r\n                \"MappingType\": 3,\r\n                \"Name\": \"Authorization Bearer\",\r\n                \"DisplayNameML\": {\r\n                    \"en-US\": \"Authorization Bearer\"\r\n                },\r\n                \"UID\": \"AUTHORIZATION_BEARER_USERONBOARDING4_1338_392_414_HEADER\",\r\n                \"Key\": \"Authorization Bearer\",\r\n                \"MobifinPacketField\": \"1.REQUEST.2.201802\",\r\n                \"MobifinPacketFieldName\": \"ParamStr2\",\r\n                \"DefaultValue\": null,\r\n                \"IntegrationApiId\": 1338,\r\n                \"OrganizationId\": 414,\r\n                \"Status\": 0,\r\n                \"Visibility\": 1,\r\n                \"ValidFromDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"ValidToDate\": \"2035-12-31T18:29:59.000Z\",\r\n                \"CreatedDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"LastUpdatedDate\": \"2025-06-19T06:22:51.000Z\",\r\n                \"CreatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"UpdatedBy\": \"orgtapestryrisuorg2@yopmail.com\",\r\n                \"id\": 38388\r\n            }\r\n        ],\r\n        \"APIDATA\": {\r\n            \"IntegrationApiId\": 1338,\r\n            \"ServiceName\": \"UserOnboarding4 Test Risu 18062025 3\",\r\n            \"UID\": \"USERONBOARDING4_392_414\",\r\n            \"ApiEndPoint\": \"/userOnboarding\",\r\n            \"ServiceUID\": \"USERONBOARDING4_392_414\",\r\n            \"HttpType\": 2,\r\n            \"IntegrationId\": 392,\r\n            \"ApiName\": \"UserOnboarding4\",\r\n            \"BlockName\": \"UserOnboarding4\"\r\n        },\r\n        \"ProviderId\": 578,\r\n        \"ProviderUID\": \"TEST_RISU_18062025_3_414_PROVIDER\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/integration/integrationAPI/392/1338",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"integrationAPI",
+								"392",
+								"1338"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IntegrationGetByID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/integration/405",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"405"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateServiceByID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OpenAPIFile\": \"FILE17448847482505984\",\r\n    \"IntegrationId\": 262,\r\n    \"ApiUrls\": [\r\n        // {\r\n        //     \"IntegrationApiId\": 701,\r\n        //     \"ApiUrl\": \"/getWallet\",\r\n        //     \"ServiceName\": \"getWallet3 Test\",\r\n        //     \"Type\": 2\r\n        // },\r\n        // {\r\n        //     \"IntegrationApiId\": 700,\r\n        //     \"ApiUrl\": \"/userOnboarding\",\r\n        //     \"ServiceName\": \"userOnboarding Test\",\r\n        //     \"Type\": 2\r\n        // },\r\n        {\r\n            \"IntegrationApiId\": 0,\r\n            \"ApiUrl\": \"/systemOperatorOnboarding\",\r\n            \"ServiceName\": \"systemOperatorOnboarding Test\",\r\n            \"Type\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/integration/openAPI/addService",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"integration",
+								"openAPI",
+								"addService"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IntegrationId\": 149\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/integration/openAPI/checkStatus",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"integration",
+								"openAPI",
+								"checkStatus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Onboarding",
+			"item": [
+				{
+					"name": "systemAdminOnboarding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Rk Singh\",\r\n    \"FirstName\": \"tapestryrisu3\",\r\n    \"LastName\": \"hit\",\r\n    \"EmailAddress\": \"RisuAdmin1@yopmail.Com\",\r\n    \"Mobile\": \"1234567890\",\r\n    \"RoleUID\": \"AVANI_ADMIN_ROLE_1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/systemAdminOnboarding",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"systemAdminOnboarding"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orgAdminOnboarding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Rk yopmail8\",\r\n    \"FirstName\": \"Risu Orgadmin 1\",\r\n    \"LastName\": \"hit\",\r\n    \"EmailAddress\": \"RisuOrgadmin1@yopmail.COM\",\r\n    \"Mobile\": \"1234567890\",\r\n    \"RoleUID\": \"CHECK_ROLE_3_427\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/orgAdminOnboarding",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"orgAdminOnboarding"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "applicationUserOnboarding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"testuseronboard\",\r\n    \"EmailAddress\": \"Risuappuse3@yopmail.COM\",\r\n    \"Mobile\": \"9100021012\",\r\n    \"UserGroupId\": \"185\",\r\n    \"SubOrgId\": \"286\",\r\n    \"RoleAndApplication\": [\r\n        {\r\n            \"ApplicationId\": 1678,\r\n            \"RoleId\": 963,\r\n            \"Status\": 0\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/application/applicationUserOnboarding",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"application",
+								"applicationUserOnboarding"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Org",
+			"item": [
+				{
+					"name": "Org-Signup",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"OrganizationDetail\": {\n        \"OrganizationName\": \"tapestryrisu1\",\n        \"OrganizationEmail\": \"tapestryrisu1@yopmail.com\",\n        \"OrganizationCountry\":\"India\",\n        \"TeamStrength\": \"1\",\n        \"TimeZone\":{\n                \"zone\": \"Etc/GMT+8\",\n                \"id\": 4\n        }\n    },\n    \"BusinessDetail\" : {\n        \"BusinessDomain\":\"1,2,4\",\n        \"BusinessDomainVal\":\"Development\",\n        \"BusinessAddress\" : \"Panamax House 2\",\n        \"BusinessContactNumber\" : \"+919876546756\"\n    \n    },\n    \"PersonalDetail\":{\n        \"RegisterBy\":\"Test Test\",\n        \"RegisterByRole\":\"4\",\n        \"RegisterByRoleVal\":\"Developer\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/organization/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"organization",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "policy-category-manager",
+			"item": [
+				{
+					"name": "dropdown",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/policy-category-manager/dropdown?ApplicationId=646",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"policy-category-manager",
+								"dropdown"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "646"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "{{baseUrl}}/role/id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"1\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"1\\\"}\",\r\n    \"Description\": \"1123\",\r\n    \"UID\": \"1234\",\r\n    \"Status\": 1,\r\n    \"RoleType\": 1,\r\n    \"RoleOwnership\": \"1\",\r\n    \"listRoleMenuValue\": [\r\n        {\r\n            \"menu\": 379,\r\n            \"value\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/963",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"963"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/role/dropdown",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"tapestryadmin 123\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"dsdsdsdd\\\"}\",\r\n    \"Description\": \"asasasasas\",\r\n    \"Status\": 1,\r\n    \"RoleType\": 1,\r\n    \"RoleOwnership\": \"1\",\r\n    \"listRoleMenuValue\": [\r\n        {\r\n            \"menu\": 370,\r\n            \"value\": 1\r\n        },\r\n        {\r\n            \"menu\": 371,\r\n            \"value\": 6\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/dropdown",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"dropdown"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "a",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/role/1000",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/824",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"824"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Role Filter",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/role?RoleType.equals=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role"
+							],
+							"query": [
+								{
+									"key": "RoleType.equals",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Check Role 1\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"tapestryadmin\\\"}\",\r\n    \"Description\": \"\",\r\n    \"Status\": 0,\r\n    \"RoleType\": 3,\r\n    \"RoleOwnership\": 1,\r\n    \"listRoleMenuValue\": [\r\n        {\r\n            \"menu\": 390, //user menu-390-app ,389-org,379-admin\r\n            \"value\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role?OrganizationId=100",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role"
+							],
+							"query": [
+								{
+									"key": "OrganizationId",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Role Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"PrivateRole1 updated\",\r\n    \"Description\": \"aaa bbb\",\r\n      \"DisplayNameML\": \"{\\\"en-US\\\":\\\"tapestryadmin\\\"}\",\r\n    \"RoleType\": 2,\r\n    \"Status\": \"0\",\r\n    \"RoleOwnership\": \"2\",\r\n    \"listRoleMenuValue\": [\r\n        {\r\n            \"menu\": 390,\r\n            \"value\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/824",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"824"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/role/checkDeleteDependency",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/role/checkDeleteDependency/394",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"role",
+								"checkDeleteDependency",
+								"394"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SubOrg",
+			"item": [
+				{
+					"name": "sub-org",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"SubOrg1Rk1\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"SubOrg1Rk\\\"}\",\r\n    \"Description\": \"SubOrg1Rk\",\r\n    \"Status\": 0,\r\n    \"Hierarchy\": {\r\n        \"EntityTypeId\": 2,\r\n        \"ParentEntityId\": 427\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sub-org",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sub-org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/sub-org?filter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Password\": \"SInghle@121\",\r\n    \"NewPassword\": \"Halme@121\",\r\n    \"UserStatus\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sub-org",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sub-org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{baseUrl}}/sub-org?filter Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Password\": \"SInghle@121\",\r\n    \"NewPassword\": \"Halme@121\",\r\n    \"UserStatus\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sub-org",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sub-org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sub-org/4",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sub-org/288",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sub-org",
+								"288"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sub-org/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Sub Org a2\",\r\n    \"Description\": \"Sub Org Description a2\",\r\n    \"Status\": 0,\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"Sub Org Name a1\\\"}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sub-org/252q",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sub-org",
+								"252q"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sub-org/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Sub Org a91\",\r\n    \"Description\": \"Hello\",\r\n    \"Status\": 0,\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"Sub Org Name a1\\\"}\",\r\n     \"Hierarchy\": {\r\n        \"EntityTypeId\": 2,\r\n        \"Level\": 2,\r\n        \"HTraversalOrder\": 2,\r\n        \"ParentEntityId\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sub-org/100000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sub-org",
+								"100000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dependency/11/2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// '/dependency/:EntityId/:EntityTypeId'",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/organization_hierarchy/dependency/1/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"organization_hierarchy",
+								"dependency",
+								"1",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Standard Master",
+			"item": [
+				{
+					"name": "ROLE_OWNERSHIP",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/standard-master/COUNTER_RESET_TYPE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"standard-master",
+								"COUNTER_RESET_TYPE"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COMPONENT_TYPE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/standard-master/COMPONENT_TYPE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"standard-master",
+								"COMPONENT_TYPE"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROLE_TYPE_ORGANIZATION",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/standard-master/ROLE_TYPE_ORGANIZATION",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"standard-master",
+								"ROLE_TYPE_ORGANIZATION"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LANGUAGE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/standard-master/LANGUAGE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"standard-master",
+								"LANGUAGE"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEAM_STRENGTH",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/standard-master/TEAM_STRENGTH",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"standard-master",
+								"TEAM_STRENGTH"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Suggestion",
+			"item": [
+				{
+					"name": "getSuggestion",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// Level:1\r\n// {\r\n//     \"DynamicData\": {\r\n//         \"ApplicationId\": 1652\r\n//     }\r\n// }\r\n// Level:2\r\n{\r\n    \"DynamicData\": {\r\n        \"ApplicationId\": 1652\r\n    },\r\n    \"Parent\": 16\r\n}\r\n// Level:3\r\n// {\r\n//     \"DynamicData\": {\r\n//         \"ApplicationId\": 1652,\r\n//         \"UID\":\"GDP_RK_1_1698_427\"\r\n//     },\r\n//     \"Parent\": 14\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/suggestion/getSuggestion/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"suggestion",
+								"getSuggestion",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TimeZone-Country-currency",
+			"item": [
+				{
+					"name": "timezone",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/standard-master/BUSINESS_DOMAIN",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"standard-master",
+								"BUSINESS_DOMAIN"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDetails by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/building-blocks/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"building-blocks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestCrud",
+			"item": [
+				{
+					"name": "test POST",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ApplicationId\": 1501, //new created Application Id,\r\n    \"domainType\":\"FINTECH_WALLET\",\r\n    \"templateUID\":\"FINTECH_WALLET_TEMPLATE_1\",\r\n    \"Test\":\"~ref(undefined)\",\r\n    \"Test1\":\"undefined\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/test",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User/Temp User",
+			"item": [
+				{
+					"name": "{{baseUrl}}/tempuser?sort=CreatedBy,DESC&page=",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tempuser?page=1&limit=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tempuser"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "systemAdminOnboarding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FirstName\": \"Risu0134\",\r\n    \"LastName\": \"Singh01\",\r\n    \"EmailAddress\": \"333@wq2s2pansawmwaxiwl4.com\",\r\n    \"Mobile\": \"9878787678\",\r\n    \"RoleUID\": \"ABC_CKECKDEL1_MOBIFINTAPESTRY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/systemAdminOnboarding",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"systemAdminOnboarding"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:5555/tempuser/102",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5555/tempuser/102",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5555",
+							"path": [
+								"tempuser",
+								"102"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usergroup",
+			"item": [
+				{
+					"name": "UserGroup Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"RISU Singh 1\",\r\n    \"DisplayNameML\":\"{\\\"en-US\\\":\\\"UserGroup1\\\"}\",\r\n    \"Description\":\"User Group\",\r\n    \"Status\":\"0\",\r\n    \"Hierarchy\":{\r\n    \"EntityTypeId\":3,//1-org,2-SubOrg,3- UserGroup\r\n    \"Level\":3,\r\n    \"HTraversalOrder\":1,\r\n    \"ParentEntityId\":286\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usergroup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usergroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usergroup/GetBySubOrgID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usergroup/subOrg/286",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usergroup",
+								"subOrg",
+								"286"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usergroup/subOrg",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usergroup/subOrg/286",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usergroup",
+								"subOrg",
+								"286"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usergroup/GetByUserGroupID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usergroup/286",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usergroup",
+								"286"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"232 RISU Singh q\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"UserGroup1\\\"}\",\r\n    \"Description\": \"User Group 123\",\r\n    \"Status\":\"\",\r\n    \"Hierarchy\": {\r\n        \"EntityTypeId\": 3,\r\n        \"ParentEntityId\":82\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usergroup/146",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usergroup",
+								"146"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usergroup delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usergroup/176",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usergroup",
+								"176"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hierarchy-manage-role/2?type=5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/hierarchy-manage-role/2?type=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"hierarchy-manage-role",
+								"2"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workflow Builder",
+			"item": [
+				{
+					"name": "Create workflow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Risu workflow 2625 1\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"Multi Language 1\\\"}\",\r\n    \"Description\": \"Description of the sample workflow\",\r\n    \"CollectionId\": 139,\r\n    \"ApplicationId\": 664,\r\n    \"APIMethod\": 2,\r\n    \"ContextPath\": \"org/collection/workflename\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createWorkflowDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"WorkflowId\": 5127,\r\n    \"FileName\": \"FILE17542903067365119\",\r\n    \"ApplicationId\": 1754\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/createWorkflowDetails",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"createWorkflowDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exportWorkflowDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FileName\": \"FILE17516194878047000\",\r\n    \"ApplicationId\": 1698,\r\n    \"CollectionId\": 1163,\r\n    \"WorkflowId\": 4686\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/exportWorkflowDetails",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"exportWorkflowDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "importWorkflowDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FileName\": \"FILE17516194878047000\",\r\n    \"ApplicationId\": 1652,\r\n    \"CollectionId\": 1117\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/importWorkflowDetails",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"importWorkflowDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit Access WorkflowDetails",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ApplicationId\": 1754,\r\n    \"ForcefulAccess\": false\r\n}\r\n// {{baseUrl}}/workflow-builder/edit/4686",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/edit/5127",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"edit",
+								"5127"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workflow-builder/:CollectionId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/162?page=0&limit=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"162"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/id/3680?ApplicationId=1608",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"id",
+								"3680"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1608"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workflow-by-app",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/workflow/appid?ApplicationId=1653&Name.contains=Withdraw",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"workflow",
+								"appid"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1653"
+								},
+								{
+									"key": "Name.contains",
+									"value": "Withdraw"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Risu updated Call 139\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"Lorem Ipsum EN\\\",\\\"fr-FR\\\":\\\"\\\"}\",\r\n    \"Description\": \"1\",\r\n    \"CollectionId\": 1076,\r\n    \"ApplicationId\": 1622\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/id/3925?ApplicationId=1622",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"id",
+								"3925"
+							],
+							"query": [
+								{
+									"key": "ApplicationId",
+									"value": "1622"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "workflow-builder Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/id/302",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"id",
+								"302"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USE_CASE_UPLOAD_API",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"WorkflowId\": 22,\r\n    //   \"FileName\": \"FILE17383080268811521-1\" //local\r\n    \"FileName\": \"FILE17383292770724394\" //local\r\n    // \"FileName\": \"FILE17383243586753700\"//dev\r\n    // grep -n \"14df15dc959b4641831a5d298e7d8444\" uncaughtExceptions.log\r\n    // FILE17383034299557265,FILE17383292770724394- FILE17383080268811521\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder/createWorkflowDetails",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder",
+								"createWorkflowDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Work Flow",
+			"item": [
+				{
+					"name": "Create work flow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGFwZXN0cnlhZG1pbkBwYW5hbWF4aWwuY29tIiwiY2xpZW50IjoiVEFQRVNUUllfQURNSU4iLCJpYXQiOjE3Mjk3NzkzMzgsImV4cCI6MTcyOTc4MjkzOH0.taytrOFFD4H3e_iG55QhJjpcNWtA40goxzb8ybedcKU",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Sample Workflow Monday\",\r\n    \"DisplayNameML\": \"{\\\"en-US\\\":\\\"Multi-Language 1\\\"}\",\r\n    // \"Description\": \"Description of the sample workflow\",\r\n    \"CollectionId\": 33\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow-builder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow-builder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update work flow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGFwZXN0cnlhZG1pbkBwYW5hbWF4aWwuY29tIiwiY2xpZW50IjoiVEFQRVNUUllfQURNSU4iLCJpYXQiOjE3Mjk3NzkzMzgsImV4cCI6MTcyOTc4MjkzOH0.taytrOFFD4H3e_iG55QhJjpcNWtA40goxzb8ybedcKU",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"WFBuilderDetails\":{\r\n        \"AccessChannel\": \"Web updated\",\r\n        \"UserCategory\": \"Admin\"\r\n    },\r\n    \"WFBuilderInputParams\": [\r\n        {\r\n            \"Status\": 0,\r\n            \"Name\": \"InputParam 1 updated\",\r\n            \"Value\":\"Test 01\",\r\n            \"DefaultValue\": \"Default Value 1\",\r\n            \"IsMandatory\": true,\r\n            \"ValidationMessage\": \"This field is required.1\",\r\n            \"RegularExpression\": \"^[a-zA-Z0-9]*$\"\r\n        },\r\n        {\r\n            \"Status\": 0,\r\n            \"Name\": \"InputParam 2 updated\",\r\n            \"DefaultValue\": \"Default Value 2\",\r\n            \"Value\":\"Test 02\",\r\n            \"IsMandatory\": true,\r\n            \"ValidationMessage\": \"This field is required.2\",\r\n            \"RegularExpression\": \"^[a-zA-Z0-9]*$\"\r\n        }\r\n    ],\r\n    \"WFBuilderOutputParams\": [\r\n        {\r\n            \"Name\": \"OutputParam 1\",\r\n            \"Value\": \"Output Value\",\r\n            \"DefaultValue\": \"Default Output Value\"\r\n        },\r\n        {\r\n            \"Name\": \"OutputParam 2\",\r\n            \"Value\": \"Output Value\",\r\n            \"DefaultValue\": \"Default Output Value\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/workflow-builder/id/11",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"workflow-builder",
+								"id",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "execute work flow",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"EntityFSMExternalId\": \"ORGANIZATION_SELF_SIGNUP\",\r\n  \"WorkflowEnabled\": \"true\",\r\n  \"ServiceType\": \"5\",\r\n  \"ActionId\": \"1\",\r\n  \"EntityExternalId\": \"TAPESTRY_ORGANIZATION_ONBOARDING\",\r\n  \"Request\": {\r\n    \"OrganizationDetail\": {\r\n        \"OrganizationName\": \"yopmail testing 7\",\r\n        \"OrganizationEmail\": \"panamax1@yopmail7.com\",\r\n        \"OrganizationCountry\":\"India\",\r\n        \"TeamStrength\":\"100\",\r\n        \"TimeZone\":{\r\n                \"zone\": \"Etc/GMT+8\",\r\n                \"id\": 4\r\n        }\r\n    },\r\n    \"BusinessDetail\" : {\r\n        \"BusinessDomain\":\"1,2,4\",\r\n        \"BusinessDomainVal\":\"Development\",\r\n        \"BusinessAddress\" : \"Panamax House 2\",\r\n        \"BusinessContactNumber\" : \"+919876546756\"\r\n    \r\n    },\r\n    \"PersonalDetail\":{\r\n        \"RegisterBy\":\"Test Test\",\r\n        \"RegisterByRole\":\"4\",\r\n        \"RegisterByRoleVal\":\"Developer\"\r\n    }\r\n}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow/executeWorkflowRequest",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow",
+								"executeWorkflowRequest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get work flow pending",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Filters\": {\r\n        \"fromCreateDate\": \"1986-09-19 00:00:00Z\",\r\n        \"toCreateDate\": \"1987-09-20 23:59:59Z\"\r\n    },\r\n    \"Page\": 0,\r\n    \"Limit\": \"1000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/workflow/getWorkflowUserPendingRequest",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"workflow",
+								"getWorkflowUserPendingRequest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
