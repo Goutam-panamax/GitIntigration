@@ -6,7 +6,7 @@ const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
 require('dotenv').config();
-const github = require('./githubClient');
+const git = require('./githubClient');
 
 const app = express();
 app.use(express.json());
@@ -45,7 +45,7 @@ app.post("/git/commit", async (req, res) => {
       const localPath = path.join(UPLOAD_PATH, f);
       const content = fs.readFileSync(localPath, "base64");
 
-      const resp = await github.put(`/repos/${OWNER}/${REPO}/contents/Files/${f}`, {
+      const resp = await git.put(`/repos/${OWNER}/${REPO}/contents/Files/${f}`, {
         message,
         content,
         branch
@@ -74,28 +74,59 @@ app.post("/git/cherrypick", async (req, res) => {
     let applied = [];
 
     for (let commitSha of commits) {
-      // get commit details
-      const commitResp = await github.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
+      // 1. Get commit details (includes list of changed files)
+      const commitResp = await git.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
       const commit = commitResp.data;
 
-      // get ref of target branch
-      const refResp = await github.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
+      // 2. Get latest commit of target branch
+      const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
       const baseSha = refResp.data.object.sha;
+      const baseCommit = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
+      const baseTreeSha = baseCommit.data.tree.sha;
 
-      // create new commit with same tree
-      const newCommit = await github.post(`/repos/${OWNER}/${REPO}/git/commits`, {
+      // 3. Prepare tree changes only for files in this commit
+      let treeItems = [];
+      for (let file of commit.files) {
+        if (file.status === "removed") {
+          treeItems.push({
+            path: file.filename,
+            mode: "100644",
+            sha: null // mark for deletion
+          });
+        } else {
+          // fetch blob contents from GitHub
+          const blobResp = await git.get(`/repos/${OWNER}/${REPO}/git/blobs/${file.sha}`);
+          const content = Buffer.from(blobResp.data.content, "base64").toString("utf-8");
+
+          treeItems.push({
+            path: file.filename,
+            mode: "100644",
+            type: "blob",
+            content
+          });
+        }
+      }
+
+      // 4. Create a new tree on top of target branch tree
+      const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
+        base_tree: baseTreeSha,
+        tree: treeItems
+      });
+
+      // 5. Create new commit with that tree
+      const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
         message: `[Cherry-pick] ${commit.commit.message}`,
-        tree: commit.commit.tree.sha,
+        tree: newTreeResp.data.sha,
         parents: [baseSha]
       });
 
-      // update branch ref to new commit
-      await github.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${targetBranch}`, {
-        sha: newCommit.data.sha,
+      // 6. Update target branch to point to new commit
+      await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${targetBranch}`, {
+        sha: newCommitResp.data.sha,
         force: false
       });
 
-      applied.push(newCommit.data.sha);
+      applied.push(newCommitResp.data.sha);
     }
 
     res.json({ message: "Commits cherry-picked", targetBranch, applied });
@@ -103,6 +134,7 @@ app.post("/git/cherrypick", async (req, res) => {
     res.status(500).json({ error: err.response?.data || err.message });
   }
 });
+
 
 app.post("/git/switch", async (req, res) => {
   const { branch,currentBranch } = req.body;
@@ -112,11 +144,11 @@ app.post("/git/switch", async (req, res) => {
   try {
     // check if branch exists
     try {
-      await github.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${branch}`);
+      await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${branch}`);
     } catch (e) {
       // branch doesn't exist → create from current
-      const ref = await github.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${CURRENT_BRANCH}`);
-      await github.post(`/repos/${OWNER}/${REPO}/git/refs`, {
+      const ref = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${CURRENT_BRANCH}`);
+      await git.post(`/repos/${OWNER}/${REPO}/git/refs`, {
         ref: `refs/heads/${branch}`,
         sha: ref.data.object.sha
       });

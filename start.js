@@ -36,86 +36,32 @@ app.post("/upload-file", upload.single("file"), async (req, res) => {
 /**
  * 2. Commit uploaded file(s) to current branch
  */
-// app.post("/git/commit", async (req, res) => {
-//     const { message = "Commit from API", files = [] } = req.body;
-
-//     try {
-//         // Git wants POSIX-style paths (forward slashes)
-//         const filePaths = files.length > 0
-//             ? files.map(f => `Files/${f}`)   // relative to repo root
-//             : ["Files"];
-//         console.log("filePaths ", filePaths)
-//         await git.add(filePaths);
-//         await git.commit(message);
-
-//         // latest commit hash
-//         const log = await git.log({ n: 1 });
-//         const commitId = log.latest.hash;
-
-//         res.json({
-//             message: "Files committed",
-//             commitMessage: message,
-//             commitId
-//         });
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// });
 app.post("/git/commit", async (req, res) => {
-  const { message = "Commit from API", files = [], branch = "main" } = req.body;
+    const { message = "Commit from API", files = [] } = req.body;
 
-  try {
-    let committedFiles = [];
-    // get branch ref (latest commit SHA)
-    const refResp = await github.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${branch}`);
-    const baseSha = refResp.data.object.sha;
+    try {
+        // Git wants POSIX-style paths (forward slashes)
+        const filePaths = files.length > 0
+            ? files.map(f => `Files/${f}`)   // relative to repo root
+            : ["Files"];
+        console.log("filePaths ", filePaths)
+        await git.add(filePaths);
+        await git.commit(message);
 
-    for (let f of files) {
-      const localPath = path.join(UPLOAD_PATH, f);
-      const content = fs.readFileSync(localPath, "base64");
+        // latest commit hash
+        const log = await git.log({ n: 1 });
+        const commitId = log.latest.hash;
 
-      // step 1: create blob
-      const blobResp = await github.post(`/repos/${OWNER}/${REPO}/git/blobs`, {
-        content: Buffer.from(content, "base64").toString("utf-8"),
-        encoding: "utf-8"
-      });
-
-      // step 2: create tree with only this blob
-      const treeResp = await github.post(`/repos/${OWNER}/${REPO}/git/trees`, {
-        base_tree: baseSha,
-        tree: [
-          {
-            path: `Files/${f}`,
-            mode: "100644",
-            type: "blob",
-            sha: blobResp.data.sha
-          }
-        ]
-      });
-
-      // step 3: create commit with only this tree change
-      const commitResp = await github.post(`/repos/${OWNER}/${REPO}/git/commits`, {
-        message,
-        tree: treeResp.data.sha,
-        parents: [baseSha]
-      });
-
-      // step 4: update branch ref
-      await github.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${branch}`, {
-        sha: commitResp.data.sha
-      });
-
-      committedFiles.push({
-        file: `Files/${f}`,
-        commitId: commitResp.data.sha
-      });
+        res.json({
+            message: "Files committed",
+            commitMessage: message,
+            commitId
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-
-    res.json({ message: "Files committed", committedFiles, branch });
-  } catch (err) {
-    res.status(500).json({ error: err.response?.data || err.message });
-  }
 });
+
 
 /**
  * 3. Cherry-pick commits from current branch into another branch
@@ -126,7 +72,7 @@ app.post("/git/cherrypick", async (req, res) => {
     if (!targetBranch || commits.length === 0) {
         return res.status(400).json({ error: "targetBranch and commits are required" });
     }
-
+    console.log("targetBranch ",targetBranch)
     try {
         const currentBranch = (await git.branch()).current;
 
