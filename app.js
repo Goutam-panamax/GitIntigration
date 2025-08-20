@@ -180,6 +180,127 @@ app.post("/git/cherrypick", async (req, res) => {
   }
 });
 
+app.post("/git/cherrypick/pr", async (req, res) => {
+  const { commits = [], targetBranch, prTitle = "Cherry-pick PR", prBody = "" } = req.body;
+
+  if (!targetBranch || commits.length === 0) {
+    return res.status(400).json({ error: "targetBranch and commits are required" });
+  }
+
+  try {
+    // STEP 1: Get latest commit on target branch
+    const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
+    const baseSha = refResp.data.object.sha;
+
+    // STEP 2: Create a new branch for cherry-pick
+    const newBranch = `cherry-pick-${Date.now()}`;
+    await git.post(`/repos/${OWNER}/${REPO}/git/refs`, {
+      ref: `refs/heads/${newBranch}`,
+      sha: baseSha
+    });
+
+    let lastSha = baseSha;
+
+    // STEP 3: Apply commits one by one into new branch
+    for (let commitSha of commits) {
+      const commitResp = await git.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
+      const commit = commitResp.data;
+
+      const baseCommitResp = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${lastSha}`);
+      const baseTreeSha = baseCommitResp.data.tree.sha;
+
+      let treeItems = [];
+      for (let file of commit.files) {
+        if (file.status === "removed") {
+          treeItems.push({
+            path: file.filename,
+            mode: "100644",
+            type: "blob",
+            sha: null
+          });
+        } else {
+          const blobResp = await git.get(
+            `/repos/${OWNER}/${REPO}/contents/${file.filename}?ref=${commitSha}`
+          );
+
+          treeItems.push({
+            path: file.filename,
+            mode: "100644",
+            type: "blob",
+            sha: blobResp.data.sha
+          });
+        }
+      }
+
+      const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
+        base_tree: baseTreeSha,
+        tree: treeItems
+      });
+
+      const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
+        message: `[Cherry-pick] ${commit.commit.message}`,
+        tree: newTreeResp.data.sha,
+        parents: [lastSha]
+      });
+
+      await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${newBranch}`, {
+        sha: newCommitResp.data.sha,
+        force: false
+      });
+
+      lastSha = newCommitResp.data.sha;
+    }
+
+    // STEP 4: Create PR
+    const prResp = await git.post(`/repos/${OWNER}/${REPO}/pulls`, {
+      title: prTitle,
+      head: newBranch,
+      base: targetBranch,
+      body: prBody
+    });
+
+    res.json({
+      message: "Cherry-pick PR created",
+      prUrl: prResp.data.html_url,
+      prNumber: prResp.data.number,
+      branch: newBranch
+    });
+  } catch (err) {
+    console.error("Cherry-pick PR error:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+app.post("/git/cherrypick/approve", async (req, res) => {
+  const { prNumber, mergeMethod = "merge" } = req.body;
+
+  if (!prNumber) {
+    return res.status(400).json({ error: "prNumber is required" });
+  }
+
+  try {
+    // STEP 1: Approve PR (GitHub API requires a review submission)
+    await git.post(`/repos/${OWNER}/${REPO}/pulls/${prNumber}/reviews`, {
+      event: "APPROVE",
+      body: "Auto-approved by system"
+    });
+
+    // STEP 2: Merge PR
+    const mergeResp = await git.put(`/repos/${OWNER}/${REPO}/pulls/${prNumber}/merge`, {
+      merge_method: mergeMethod
+    });
+
+    res.json({
+      message: "PR approved and merged",
+      mergeCommitSha: mergeResp.data.sha
+    });
+  } catch (err) {
+    console.error("Approve PR error:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+
 // app.post("/git/commit", async (req, res) => {
 //   const { message = "Commit from API", files = [], branch = "main" } = req.body;
 
