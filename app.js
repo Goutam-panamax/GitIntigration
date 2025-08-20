@@ -6,27 +6,27 @@ const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
 require('dotenv').config();
-const github = require('./githubClient');
+const git = require('./githubClient');
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
-// Multer Setup for File Upload
+// GitHub repo info
+const OWNER = process.env.GITHUB_OWNER;  // e.g. "myorg"
+const REPO = process.env.GITHUB_REPO;    // e.g. "myrepo"
+const REPO_PATH = path.resolve(__dirname); // constant repo folder
+const UPLOAD_PATH = path.join(REPO_PATH, "Files"); // files stored here
+
+// ensure repo and upload folder exist
+if (!fs.existsSync(REPO_PATH)) fs.mkdirSync(REPO_PATH);
+if (!fs.existsSync(UPLOAD_PATH)) fs.mkdirSync(UPLOAD_PATH);
+
+// configure multer
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const uploadPath = path.join(__dirname, 'Files');
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath);
-    }
-    cb(null, uploadPath);
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  }
+    destination: (req, file, cb) => cb(null, UPLOAD_PATH),
+    filename: (req, file, cb) => cb(null, file.originalname)
 });
 const upload = multer({ storage });
-const RECORDS_FILE = path.join(__dirname, 'records.json');
 
 // Upload File to Files Folder
 app.post('/upload-file', upload.single('file'), (req, res) => {
@@ -36,233 +36,397 @@ app.post('/upload-file', upload.single('file'), (req, res) => {
   res.json({ message: 'File uploaded successfully', fileName: req.file.originalname });
 });
 
-// Commit File to Dev Branch
-app.post('/git/commit/dev/all', async (req, res) => {
-  const commitMessage = req?.body?.message || 'Committing all changes to dev';
-  const BRANCH = 'dev';
-  const REPO_PATH = path.join(__dirname);
+app.post("/git/commit", async (req, res) => {
+  const { message = "Commit from API", files = [], branch = "main" } = req.body;
+
+  if (files.length === 0) {
+    return res.status(400).json({ error: "No files provided" });
+  }
 
   try {
-    // 1. Get reference to the branch
-    const refRes = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/ref/heads/${BRANCH}`);
-    const latestCommitSha = refRes.data.object.sha;
+    // get base ref of branch
+    const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${branch}`);
+    const baseSha = refResp.data.object.sha;
 
-    // 2. Get latest commit data (to get tree SHA)
-    const commitRes = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits/${latestCommitSha}`);
-    const baseTreeSha = commitRes.data.tree.sha;
+    // get base commit (to extract tree sha)
+    const baseCommitResp = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
+    const baseTreeSha = baseCommitResp.data.tree.sha;
 
-    // 3. Read all files from REPO_PATH
-    const files = await fsExtra.readdir(REPO_PATH);
-    const blobs = [];
+    // build tree items for all files
+    let treeItems = [];
+    for (let f of files) {
+      const localPath = path.join(UPLOAD_PATH, f);
+      const content = fs.readFileSync(localPath, "base64");
 
-    for (const file of files) {
-      const fullPath = path.join(REPO_PATH, file);
-      const stats = await fsExtra.stat(fullPath);
-      if (stats.isFile()) {
-        const content = await fsExtra.readFile(fullPath, 'utf8');
-        // 4. Create a blob for each file
-        const blobRes = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/blobs`, {
-          content,
-          encoding: 'utf-8',
-        });
+      // create blob for file
+      const blobResp = await git.post(`/repos/${OWNER}/${REPO}/git/blobs`, {
+        content,
+        encoding: "base64"
+      });
 
-        blobs.push({
-          path: file,
-          mode: '100644',
-          type: 'blob',
-          sha: blobRes.data.sha,
-        });
-      }
+      treeItems.push({
+        path: `Files/${f}`,
+        mode: "100644",
+        type: "blob",
+        sha: blobResp.data.sha
+      });
     }
 
-    // 5. Create a new tree with the blobs
-    const treeRes = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/trees`, {
+    // create new tree
+    const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
       base_tree: baseTreeSha,
-      tree: blobs,
+      tree: treeItems
     });
 
-    // 6. Create a new commit
-    const commitRes2 = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits`, {
-      message: commitMessage,
-      tree: treeRes.data.sha,
-      parents: [latestCommitSha],
+    // create commit
+    const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
+      message,
+      tree: newTreeResp.data.sha,
+      parents: [baseSha]
     });
 
-    // 7. Update the ref (branch)
-    await github.patch(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/refs/heads/${BRANCH}`, {
-      sha: commitRes2.data.sha,
+    // update branch ref
+    await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${branch}`, {
+      sha: newCommitResp.data.sha,
+      force: false
     });
 
     res.json({
-      message: 'Committed all local changes to dev branch via GitHub API',
-      commitSha: commitRes2.data.sha,
+      message: "Files committed",
+      branch,
+      commitId: newCommitResp.data.sha,
+      files
+    });
+  } catch (err) {
+    console.error("Commit error:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+app.post("/git/cherrypick", async (req, res) => {
+  const { commits = [], targetBranch } = req.body;
+
+  if (!targetBranch || commits.length === 0) {
+    return res.status(400).json({ error: "targetBranch and commits are required" });
+  }
+
+  try {
+    let applied = [];
+
+    for (let commitSha of commits) {
+      // get commit details
+      const commitResp = await git.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
+      const commit = commitResp.data;
+
+      // get ref of target branch
+      const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
+      const baseSha = refResp.data.object.sha;
+
+      // get tree of base commit (target branch)
+      const baseCommitResp = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
+      const baseTreeSha = baseCommitResp.data.tree.sha;
+
+      // build tree with only changed files
+      let treeItems = [];
+      for (let file of commit.files) {
+        if (file.status === "removed") {
+          treeItems.push({
+            path: file.filename,
+            mode: "100644",
+            type: "blob",
+            sha: null
+          });
+        } else {
+          // get blob sha from commit
+          const blobResp = await git.get(
+            `/repos/${OWNER}/${REPO}/contents/${file.filename}?ref=${commitSha}`
+          );
+
+          treeItems.push({
+            path: file.filename,
+            mode: "100644",
+            type: "blob",
+            sha: blobResp.data.sha
+          });
+        }
+      }
+
+      // create new tree
+      const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
+        base_tree: baseTreeSha,
+        tree: treeItems
+      });
+
+      // create new commit
+      const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
+        message: `[Cherry-pick] ${commit.commit.message}`,
+        tree: newTreeResp.data.sha,
+        parents: [baseSha]
+      });
+
+      // update branch ref
+      await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${targetBranch}`, {
+        sha: newCommitResp.data.sha,
+        force: false
+      });
+
+      applied.push(newCommitResp.data.sha);
+    }
+
+    res.json({ message: "Commits cherry-picked", targetBranch, applied });
+  } catch (err) {
+    console.error("Cherry-pick error:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+app.post("/git/cherrypick/pr", async (req, res) => {
+  const { commits = [], targetBranch, prTitle = "Cherry-pick PR", prBody = "" } = req.body;
+
+  if (!targetBranch || commits.length === 0) {
+    return res.status(400).json({ error: "targetBranch and commits are required" });
+  }
+
+  try {
+    // STEP 1: Get latest commit on target branch
+    const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
+    const baseSha = refResp.data.object.sha;
+
+    // STEP 2: Create a new branch for cherry-pick
+    const newBranch = `cherry-pick-${Date.now()}`;
+    await git.post(`/repos/${OWNER}/${REPO}/git/refs`, {
+      ref: `refs/heads/${newBranch}`,
+      sha: baseSha
     });
 
-  } catch (err) {
-    console.error(err.response?.data || err.message);
-    res.status(500).json({ error: err.message });
-  }
-});
+    let lastSha = baseSha;
 
-app.post('/git/commit/dev', async (req, res) => {
-    const { message, files = ['.'] } = req.body;
-    const filePath = path.join(__dirname,'Files',files[0]);
-    const content = fs.readFileSync(filePath, 'utf8');
-    const branch = 'dev';
-  
-    try {
-      const { data: refData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/ref/heads/${branch}`);
-      const latestCommitSha = refData.object.sha;
-  
-      const { data: commitData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits/${latestCommitSha}`);
-      const baseTree = commitData.tree.sha;
-  
-      // Create blob (file content)
-      const { data: blobData } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/blobs`, {
-        content: content,
-        encoding: 'utf-8'
-      });
-  
-      // Create tree
-      const { data: treeData } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/trees`, {
-        base_tree: baseTree,
-        tree: [
-          {
-            path: `Files/${files[0]}`,
-            mode: '100644',
-            type: 'blob',
-            sha: blobData.sha
-          }
-        ]
-      });
-  
-      // Create commit
-      const { data: newCommit } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/commits`, {
-        message: message,
-        tree: treeData.sha,
-        parents: [latestCommitSha]
-      });
-  
-      // Update branch reference
-      await github.patch(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/refs/heads/${branch}`, {
-        sha: newCommit.sha
-      });
+    // STEP 3: Apply commits one by one into new branch
+    for (let commitSha of commits) {
+      const commitResp = await git.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
+      const commit = commitResp.data;
 
-      //Append to records.json
-      const record = {
-        sha: newCommit.sha,
-        file: files[0],
-        message: message,
-        branch: 'dev',
-        date: new Date()
-      };
+      const baseCommitResp = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${lastSha}`);
+      const baseTreeSha = baseCommitResp.data.tree.sha;
 
-      let records = [];
-      if (await fsExtra.pathExists(RECORDS_FILE)) {
-        records = await fsExtra.readJSON(RECORDS_FILE);
-      }
+      let treeItems = [];
+      for (let file of commit.files) {
+        if (file.status === "removed") {
+          treeItems.push({
+            path: file.filename,
+            mode: "100644",
+            type: "blob",
+            sha: null
+          });
+        } else {
+          const blobResp = await git.get(
+            `/repos/${OWNER}/${REPO}/contents/${file.filename}?ref=${commitSha}`
+          );
 
-      records.push(record);
-      await fsExtra.writeJSON(RECORDS_FILE, records, { spaces: 2 });
-
-      res.json(record);
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      res.status(500).json({ error: err.message });
-    }
-});
-
-// Merge Dev to UAT
-app.post('/git/promote/dev-to-uat/selected', async (req, res) => {
-  try {
-    const { selectedShas } = req.body; // Array of SHAs to promote (max 1 at a time via merge)
-
-  if (!selectedShas || !Array.isArray(selectedShas) || selectedShas.length === 0) {
-    return res.status(400).json({ error: 'No SHAs provided' });
-  }
-  
-  let records = [];
-
-  for (const sha of selectedShas) {
-    try {
-        const commit_essentials = {
-          base: 'UAT',
-          head: sha,
-          commit_message: `Promote commit ${sha} to UAT`
-        };
-        const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`,commit_essentials);
-
-        //Append to records.json
-        const record = {
-          sha: commit_essentials?.sha,
-          file: "same as dev",
-          message: commit_essentials?.commit_message,
-          branch: commit_essentials?.head,
-          date: new Date()
-        };
-
-        if (await fsExtra.pathExists(RECORDS_FILE)) {
-          records = await fsExtra.readJSON(RECORDS_FILE);
+          treeItems.push({
+            path: file.filename,
+            mode: "100644",
+            type: "blob",
+            sha: blobResp.data.sha
+          });
         }
-
-        records.push(record);
-        await fsExtra.writeJSON(RECORDS_FILE, records, { spaces: 2 });
-
-      }catch (err) {
-        console.error(`Failed to merge ${sha}:`, err.response?.data || err.message);
-        promoted.push({ sha, merged: false, error: err.message });
       }
+
+      const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
+        base_tree: baseTreeSha,
+        tree: treeItems
+      });
+
+      const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
+        message: `[Cherry-pick] ${commit.commit.message}`,
+        tree: newTreeResp.data.sha,
+        parents: [lastSha]
+      });
+
+      await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${newBranch}`, {
+        sha: newCommitResp.data.sha,
+        force: false
+      });
+
+      lastSha = newCommitResp.data.sha;
     }
 
-    res.json(records);
+    // STEP 4: Create PR
+    const prResp = await git.post(`/repos/${OWNER}/${REPO}/pulls`, {
+      title: prTitle,
+      head: newBranch,
+      base: targetBranch,
+      body: prBody
+    });
+
+    res.json({
+      message: "Cherry-pick PR created",
+      prUrl: prResp.data.html_url,
+      prNumber: prResp.data.number,
+      branch: newBranch
+    });
   } catch (err) {
-    console.error(err.response?.data || err.message);
-    res.status(500).json({ error: err.message });
+    console.error("Cherry-pick PR error:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
   }
 });
 
-app.post('/git/promote/dev-to-uat', async (req, res) => {
-    try {
-      const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`, {
-        base: 'UAT',
-        head: 'dev',
-        commit_message: 'Merging dev into UAT'
-      });
-  
-      res.json({ message: 'dev merged into UAT', merge_commit_sha: data.sha });
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      res.status(500).json({ error: err.message });
-    }
-});
+app.post("/git/cherrypick/approve", async (req, res) => {
+  const { prNumber, mergeMethod = "merge" } = req.body;
 
-// Merge UAT to Main
-app.post('/git/promote/uat-to-main', async (req, res) => {
-    try {
-      const { data } = await github.post(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/merges`, {
-        base: 'main',
-        head: 'UAT',
-        commit_message: 'Merging UAT into main'
-      });
-  
-      res.json({ message: 'UAT merged into main', merge_commit_sha: data.sha });
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      res.status(500).json({ error: err.message });
-    }
-});
+  if (!prNumber) {
+    return res.status(400).json({ error: "prNumber is required" });
+  }
 
-// Switch to Branch (get HEAD commit)
-app.post('/switch-branch', async (req, res) => {
-  const { branch } = req.body;
   try {
-    const { data: branchData } = await github.get(`/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/branches/${branch}`);
-    res.json({ message: `Switched to ${branch}`, commit: branchData.commit });
+    // STEP 1: Approve PR (GitHub API requires a review submission)
+    await git.post(`/repos/${OWNER}/${REPO}/pulls/${prNumber}/reviews`, {
+      event: "APPROVE",
+      body: "Auto-approved by system"
+    });
+
+    // STEP 2: Merge PR
+    const mergeResp = await git.put(`/repos/${OWNER}/${REPO}/pulls/${prNumber}/merge`, {
+      merge_method: mergeMethod
+    });
+
+    res.json({
+      message: "PR approved and merged",
+      mergeCommitSha: mergeResp.data.sha
+    });
   } catch (err) {
-    console.error(err.response?.data || err.message);
-    res.status(500).json({ error: err.message });
+    console.error("Approve PR error:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
   }
 });
+
+
+// app.post("/git/commit", async (req, res) => {
+//   const { message = "Commit from API", files = [], branch = "main" } = req.body;
+
+//   try {
+//     let committedFiles = [];
+//     for (let f of files) {
+//       const localPath = path.join(UPLOAD_PATH, f);
+//       const content = fs.readFileSync(localPath, "base64");
+
+//       const resp = await git.put(`/repos/${OWNER}/${REPO}/contents/Files/${f}`, {
+//         message,
+//         content,
+//         branch
+//       });
+
+//       committedFiles.push({
+//         file: f,
+//         commitId: resp.data.commit.sha
+//       });
+//     }
+
+//     res.json({ message: "Files committed", committedFiles, branch });
+//   } catch (err) {
+//     console.log("err",err)
+//     res.status(500).json({ error: err.response?.data || err.message });
+//   }
+// });
+
+// app.post("/git/cherrypick", async (req, res) => {
+//   const { commits = [], targetBranch } = req.body;
+
+//   if (!targetBranch || commits.length === 0) {
+//     return res.status(400).json({ error: "targetBranch and commits are required" });
+//   }
+
+//   try {
+//     let applied = [];
+
+//     for (let commitSha of commits) {
+//       // 1. Get commit details (includes list of changed files)
+//       const commitResp = await git.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
+//       const commit = commitResp.data;
+
+//       // 2. Get latest commit of target branch
+//       const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
+//       const baseSha = refResp.data.object.sha;
+//       const baseCommit = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
+//       const baseTreeSha = baseCommit.data.tree.sha;
+
+//       // 3. Prepare tree changes only for files in this commit
+//       let treeItems = [];
+//       for (let file of commit.files) {
+//         if (file.status === "removed") {
+//           treeItems.push({
+//             path: file.filename,
+//             mode: "100644",
+//             sha: null // mark for deletion
+//           });
+//         } else {
+//           // fetch blob contents from GitHub
+//           const blobResp = await git.get(`/repos/${OWNER}/${REPO}/git/blobs/${file.sha}`);
+//           const content = Buffer.from(blobResp.data.content, "base64").toString("utf-8");
+
+//           treeItems.push({
+//             path: file.filename,
+//             mode: "100644",
+//             type: "blob",
+//             content
+//           });
+//         }
+//       }
+
+//       // 4. Create a new tree on top of target branch tree
+//       const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
+//         base_tree: baseTreeSha,
+//         tree: treeItems
+//       });
+
+//       // 5. Create new commit with that tree
+//       const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
+//         message: `[Cherry-pick] ${commit.commit.message}`,
+//         tree: newTreeResp.data.sha,
+//         parents: [baseSha]
+//       });
+
+//       // 6. Update target branch to point to new commit
+//       await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${targetBranch}`, {
+//         sha: newCommitResp.data.sha,
+//         force: false
+//       });
+
+//       applied.push(newCommitResp.data.sha);
+//     }
+
+//     res.json({ message: "Commits cherry-picked", targetBranch, applied });
+//   } catch (err) {
+//     res.status(500).json({ error: err.response?.data || err.message });
+//   }
+// });
+
+
+app.post("/git/switch", async (req, res) => {
+  const { branch,currentBranch } = req.body;
+  let CURRENT_BRANCH = currentBranch ?? "dev";
+  if (!branch) return res.status(400).json({ error: "branch is required" });
+
+  try {
+    // check if branch exists
+    try {
+      await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${branch}`);
+    } catch (e) {
+      // branch doesn't exist → create from current
+      const ref = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${CURRENT_BRANCH}`);
+      await git.post(`/repos/${OWNER}/${REPO}/git/refs`, {
+        ref: `refs/heads/${branch}`,
+        sha: ref.data.object.sha
+      });
+    }
+
+    CURRENT_BRANCH = branch;
+    res.json({ message: `Switched to branch ${branch}`, currentBranch: CURRENT_BRANCH });
+  } catch (err) {
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
