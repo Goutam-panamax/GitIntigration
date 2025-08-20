@@ -45,7 +45,7 @@ app.post("/git/commit", async (req, res) => {
       const localPath = path.join(UPLOAD_PATH, f);
       const content = fs.readFileSync(localPath, "base64");
 
-      const resp = await github.put(`/repos/${OWNER}/${REPO}/contents/${f}`, {
+      const resp = await github.put(`/repos/${OWNER}/${REPO}/contents/Files/${f}`, {
         message,
         content,
         branch
