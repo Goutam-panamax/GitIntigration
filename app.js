@@ -39,26 +39,66 @@ app.post('/upload-file', upload.single('file'), (req, res) => {
 app.post("/git/commit", async (req, res) => {
   const { message = "Commit from API", files = [], branch = "main" } = req.body;
 
+  if (files.length === 0) {
+    return res.status(400).json({ error: "No files provided" });
+  }
+
   try {
-    let committedFiles = [];
+    // get base ref of branch
+    const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${branch}`);
+    const baseSha = refResp.data.object.sha;
+
+    // get base commit (to extract tree sha)
+    const baseCommitResp = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
+    const baseTreeSha = baseCommitResp.data.tree.sha;
+
+    // build tree items for all files
+    let treeItems = [];
     for (let f of files) {
       const localPath = path.join(UPLOAD_PATH, f);
       const content = fs.readFileSync(localPath, "base64");
 
-      const resp = await git.put(`/repos/${OWNER}/${REPO}/contents/Files/${f}`, {
-        message,
+      // create blob for file
+      const blobResp = await git.post(`/repos/${OWNER}/${REPO}/git/blobs`, {
         content,
-        branch
+        encoding: "base64"
       });
 
-      committedFiles.push({
-        file: f,
-        commitId: resp.data.commit.sha
+      treeItems.push({
+        path: `Files/${f}`,
+        mode: "100644",
+        type: "blob",
+        sha: blobResp.data.sha
       });
     }
 
-    res.json({ message: "Files committed", committedFiles, branch });
+    // create new tree
+    const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
+      base_tree: baseTreeSha,
+      tree: treeItems
+    });
+
+    // create commit
+    const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
+      message,
+      tree: newTreeResp.data.sha,
+      parents: [baseSha]
+    });
+
+    // update branch ref
+    await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${branch}`, {
+      sha: newCommitResp.data.sha,
+      force: false
+    });
+
+    res.json({
+      message: "Files committed",
+      branch,
+      commitId: newCommitResp.data.sha,
+      files
+    });
   } catch (err) {
+    console.error("Commit error:", err.response?.data || err.message);
     res.status(500).json({ error: err.response?.data || err.message });
   }
 });
@@ -74,53 +114,57 @@ app.post("/git/cherrypick", async (req, res) => {
     let applied = [];
 
     for (let commitSha of commits) {
-      // 1. Get commit details (includes list of changed files)
+      // get commit details
       const commitResp = await git.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
       const commit = commitResp.data;
 
-      // 2. Get latest commit of target branch
+      // get ref of target branch
       const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
       const baseSha = refResp.data.object.sha;
-      const baseCommit = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
-      const baseTreeSha = baseCommit.data.tree.sha;
 
-      // 3. Prepare tree changes only for files in this commit
+      // get tree of base commit (target branch)
+      const baseCommitResp = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
+      const baseTreeSha = baseCommitResp.data.tree.sha;
+
+      // build tree with only changed files
       let treeItems = [];
       for (let file of commit.files) {
         if (file.status === "removed") {
           treeItems.push({
             path: file.filename,
             mode: "100644",
-            sha: null // mark for deletion
+            type: "blob",
+            sha: null
           });
         } else {
-          // fetch blob contents from GitHub
-          const blobResp = await git.get(`/repos/${OWNER}/${REPO}/git/blobs/${file.sha}`);
-          const content = Buffer.from(blobResp.data.content, "base64").toString("utf-8");
+          // get blob sha from commit
+          const blobResp = await git.get(
+            `/repos/${OWNER}/${REPO}/contents/${file.filename}?ref=${commitSha}`
+          );
 
           treeItems.push({
             path: file.filename,
             mode: "100644",
             type: "blob",
-            content
+            sha: blobResp.data.sha
           });
         }
       }
 
-      // 4. Create a new tree on top of target branch tree
+      // create new tree
       const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
         base_tree: baseTreeSha,
         tree: treeItems
       });
 
-      // 5. Create new commit with that tree
+      // create new commit
       const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
         message: `[Cherry-pick] ${commit.commit.message}`,
         tree: newTreeResp.data.sha,
         parents: [baseSha]
       });
 
-      // 6. Update target branch to point to new commit
+      // update branch ref
       await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${targetBranch}`, {
         sha: newCommitResp.data.sha,
         force: false
@@ -131,9 +175,110 @@ app.post("/git/cherrypick", async (req, res) => {
 
     res.json({ message: "Commits cherry-picked", targetBranch, applied });
   } catch (err) {
+    console.error("Cherry-pick error:", err.response?.data || err.message);
     res.status(500).json({ error: err.response?.data || err.message });
   }
 });
+
+// app.post("/git/commit", async (req, res) => {
+//   const { message = "Commit from API", files = [], branch = "main" } = req.body;
+
+//   try {
+//     let committedFiles = [];
+//     for (let f of files) {
+//       const localPath = path.join(UPLOAD_PATH, f);
+//       const content = fs.readFileSync(localPath, "base64");
+
+//       const resp = await git.put(`/repos/${OWNER}/${REPO}/contents/Files/${f}`, {
+//         message,
+//         content,
+//         branch
+//       });
+
+//       committedFiles.push({
+//         file: f,
+//         commitId: resp.data.commit.sha
+//       });
+//     }
+
+//     res.json({ message: "Files committed", committedFiles, branch });
+//   } catch (err) {
+//     console.log("err",err)
+//     res.status(500).json({ error: err.response?.data || err.message });
+//   }
+// });
+
+// app.post("/git/cherrypick", async (req, res) => {
+//   const { commits = [], targetBranch } = req.body;
+
+//   if (!targetBranch || commits.length === 0) {
+//     return res.status(400).json({ error: "targetBranch and commits are required" });
+//   }
+
+//   try {
+//     let applied = [];
+
+//     for (let commitSha of commits) {
+//       // 1. Get commit details (includes list of changed files)
+//       const commitResp = await git.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
+//       const commit = commitResp.data;
+
+//       // 2. Get latest commit of target branch
+//       const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
+//       const baseSha = refResp.data.object.sha;
+//       const baseCommit = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
+//       const baseTreeSha = baseCommit.data.tree.sha;
+
+//       // 3. Prepare tree changes only for files in this commit
+//       let treeItems = [];
+//       for (let file of commit.files) {
+//         if (file.status === "removed") {
+//           treeItems.push({
+//             path: file.filename,
+//             mode: "100644",
+//             sha: null // mark for deletion
+//           });
+//         } else {
+//           // fetch blob contents from GitHub
+//           const blobResp = await git.get(`/repos/${OWNER}/${REPO}/git/blobs/${file.sha}`);
+//           const content = Buffer.from(blobResp.data.content, "base64").toString("utf-8");
+
+//           treeItems.push({
+//             path: file.filename,
+//             mode: "100644",
+//             type: "blob",
+//             content
+//           });
+//         }
+//       }
+
+//       // 4. Create a new tree on top of target branch tree
+//       const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
+//         base_tree: baseTreeSha,
+//         tree: treeItems
+//       });
+
+//       // 5. Create new commit with that tree
+//       const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
+//         message: `[Cherry-pick] ${commit.commit.message}`,
+//         tree: newTreeResp.data.sha,
+//         parents: [baseSha]
+//       });
+
+//       // 6. Update target branch to point to new commit
+//       await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${targetBranch}`, {
+//         sha: newCommitResp.data.sha,
+//         force: false
+//       });
+
+//       applied.push(newCommitResp.data.sha);
+//     }
+
+//     res.json({ message: "Commits cherry-picked", targetBranch, applied });
+//   } catch (err) {
+//     res.status(500).json({ error: err.response?.data || err.message });
+//   }
+// });
 
 
 app.post("/git/switch", async (req, res) => {
