@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:mobifin="http://mobifin.io/schema/bpmn" id="sample-diagram_17500689850724851_17558399578645290" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1_17500689850724851_17558399578640875" isExecutable="false">
+    <bpmn2:extensionElements />
+    <bpmn2:startEvent id="STARTEVENT_Event_0fxeyvh_17500689850724851_17501369893077032_17558399578642329" name="Start" UID="STARTEVENT" BlockCategory="1" Task_Name="Start Event">
+      <bpmn2:outgoing>Flow_0hwi3vo_17500689850724851_17558399578648407</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:endEvent id="ENDEVENT_Event_0xxy5i8_17500689850724851_17501369893077032_17558399578640977" name="End" UID="ENDEVENT" BlockCategory="1" Task_Name="End Event">
+      <bpmn2:incoming>Flow_17558399578642580</bpmn2:incoming>
+      <bpmn2:incoming>Flow_17558399578647823</bpmn2:incoming>
+      <bpmn2:incoming>Flow_1rllnd0_17558399578644468</bpmn2:incoming>
+      <bpmn2:incoming>Flow_1lvyo8y_17558399578640428</bpmn2:incoming>
+      <bpmn2:incoming>Flow_15apnx8_17558399578643187</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <mobifin:serviceTask id="SENDRESPONSE_Activity_0ou88za_17500689850724851_17558399578644823" name="Success Response" UID="SENDRESPONSE" BlockCategory="1" Task_Name="Send Response" RESPONSEDATA_SENDRESPONSE="{TransactionId:RESPONSE.paymentBlock.output.transaction_id},{SubTransactionId:RESPONSE.paymentBlock.output.sub_transaction_id}" RESPONSECODE_SENDRESPONSE="1" RESPONSECODE_SENDRESPONSE_DISPLAY="1" RESPONSEMESSAGE_SENDRESPONSE="Send Money Successful" RESPONSEMESSAGE_SENDRESPONSE_DISPLAY="Send Money Successful" Description="Success Response">
+      <bpmn2:incoming>Flow_0lgy1n4_17558399578645715</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_17558399578647823</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <mobifin:serviceTask id="PROCESSPAYMENT_Activity_06vlz24_17500689850724851_17558399578641162" name="Payment" UID="PROCESSPAYMENT" BlockCategory="1" Task_Name="Process Payment" OUTPUTPERSISTKEY_PROCESSPAYMENT="paymentBlock" AMOUNT_PROCESSPAYMENT="TAPESTRYREQUEST.Amount" AMOUNT_PROCESSPAYMENT_DISPLAY="TAPESTRYREQUEST.Amount" DEBITFROM_PROCESSPAYMENT="TAPESTRYREQUEST.FromUserIdentifier" DEBITFROM_PROCESSPAYMENT_DISPLAY="TAPESTRYREQUEST.FromUserIdentifier" SOURCEBALANCE_PROCESSPAYMENT="EMONEY_1281_414" DESTINATIONBALANCE_PROCESSPAYMENT="EMONEY_1281_414" CREDITTO_PROCESSPAYMENT="TAPESTRYREQUEST.ToUserIdentifier" CREDITTO_PROCESSPAYMENT_DISPLAY="TAPESTRYREQUEST.ToUserIdentifier" Description="Payment">
+      <bpmn2:incoming>Flow_0hwi3vo_17500689850724851_17558399578648407</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0taas9i_17500689850724851_17558399578647955</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_0hwi3vo_17500689850724851_17558399578648407" sourceRef="STARTEVENT_Event_0fxeyvh_17500689850724851_17501369893077032_17558399578642329" targetRef="PROCESSPAYMENT_Activity_06vlz24_17500689850724851_17558399578641162" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:exclusiveGateway id="RULE_Gateway_08cpfhn_17500689850724851_17558399578644719" UID="RULE" BlockCategory="1" Task_Name="Rule">
+      <bpmn2:incoming>Flow_0taas9i_17500689850724851_17558399578647955</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_093ov93_17500689850724851_17501369893077032_17558399578647062</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_1bqxm30_17500689850724851_17501369893077032_17558399578643597</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <mobifin:serviceTask id="SENDRESPONSE_Activity_0vea2dh_17500689850724851_17558399578644485" name="Fail Response" UID="SENDRESPONSE" BlockCategory="1" Task_Name="Send Response" RESPONSEDATA_SENDRESPONSE="" Description="Fail Response" RESPONSECODE_SENDRESPONSE="-1" RESPONSECODE_SENDRESPONSE_DISPLAY="-1" RESPONSEMESSAGE_SENDRESPONSE="Send Money Failed" RESPONSEMESSAGE_SENDRESPONSE_DISPLAY="Send Money Failed">
+      <bpmn2:incoming>Flow_1bqxm30_17500689850724851_17501369893077032_17558399578643597</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_17558399578642580</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_0taas9i_17500689850724851_17558399578647955" sourceRef="PROCESSPAYMENT_Activity_06vlz24_17500689850724851_17558399578641162" targetRef="RULE_Gateway_08cpfhn_17500689850724851_17558399578644719" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:sequenceFlow id="Flow_093ov93_17500689850724851_17501369893077032_17558399578647062" name="Success" sourceRef="RULE_Gateway_08cpfhn_17500689850724851_17558399578644719" targetRef="MONITORCOUNTER_Activity_17558399578642751" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" PARAMETER_SEQUENCEFLOW="RESPONSE.paymentBlock.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.paymentBlock.response_code" OPERATOR_SEQUENCEFLOW="&#62;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" Description="Success" />
+    <bpmn2:sequenceFlow id="Flow_1bqxm30_17500689850724851_17501369893077032_17558399578643597" name="Fail" sourceRef="RULE_Gateway_08cpfhn_17500689850724851_17558399578644719" targetRef="SENDRESPONSE_Activity_0vea2dh_17500689850724851_17558399578644485" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" PARAMETER_SEQUENCEFLOW="RESPONSE.paymentBlock.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.paymentBlock.response_code" OPERATOR_SEQUENCEFLOW="&#60;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" Description="Fail" />
+    <mobifin:serviceTask id="APPLYCHARGE_Activity_17558399578642908" name="Cash Back" UID="APPLYCHARGE" BlockCategory="1" Task_Name="Apply Charge" Description="Cash Back" OUTPUTPERSISTKEY_APPLYCHARGE="CashBackBlock" CHARGECATEGORY_APPLYCHARGE="REWARDS_1898_419" CHARGE_APPLYCHARGE="CASHBACK_1898_419" CALCULATEDONVALUE_APPLYCHARGE="TAPESTRYREQUEST.Amount" CALCULATEDONVALUE_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.Amount" DEBITFROM_APPLYCHARGE="TAPESTRYREQUEST.CashBackAccountIdentifier" DEBITFROM_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.CashBackAccountIdentifier" SOURCEBALANCE_APPLYCHARGE="EMONEY_1281_414" CREDITTO_APPLYCHARGE="TAPESTRYREQUEST.FromUserIdentifier" CREDITTO_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.FromUserIdentifier" DESTINATIONBALANCE_APPLYCHARGE="EMONEY_1281_414">
+      <bpmn2:incoming>Flow_0q3xro5_17558399578641880</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_17m0six_17558399578647208</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <mobifin:serviceTask id="APPLYCHARGE_Activity_17558399578642232" name="Platform Fees" UID="APPLYCHARGE" BlockCategory="1" Task_Name="Apply Charge" Description="Platform Fees" OUTPUTPERSISTKEY_APPLYCHARGE="PlatformFeeBlock" CHARGECATEGORY_APPLYCHARGE="CHARGES_1898_419" CHARGE_APPLYCHARGE="PLATFORM_FEES_1898_419" CALCULATEDONVALUE_APPLYCHARGE="TAPESTRYREQUEST.Amount" CALCULATEDONVALUE_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.Amount" DEBITFROM_APPLYCHARGE="TAPESTRYREQUEST.FromUserIdentifier" DEBITFROM_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.FromUserIdentifier" SOURCEBALANCE_APPLYCHARGE="EMONEY_1281_414" CREDITTO_APPLYCHARGE="TAPESTRYREQUEST.FeesAccountIdentifier" CREDITTO_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.FeesAccountIdentifier" DESTINATIONBALANCE_APPLYCHARGE="EMONEY_1281_414">
+      <bpmn2:incoming>Flow_1n03vrf_17558399578647311</bpmn2:incoming>
+      <bpmn2:incoming>Flow_0a5vu19_17558399578643764</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_17558399578643453</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_17558399578643453" sourceRef="APPLYCHARGE_Activity_17558399578642232" targetRef="RULE_Gateway_00hrdjs_17558399578642592" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" PARAMETER_SEQUENCEFLOW="" PARAMETER_SEQUENCEFLOW_DISPLAY="" OPERATOR_SEQUENCEFLOW="&#62;" VALUE_SEQUENCEFLOW="" VALUE_SEQUENCEFLOW_DISPLAY="" />
+    <mobifin:serviceTask id="APPLYCHARGE_Activity_17558399578649587" name="Tax" UID="APPLYCHARGE" BlockCategory="1" Task_Name="Apply Charge" Description="Tax" OUTPUTPERSISTKEY_APPLYCHARGE="Tax" CHARGECATEGORY_APPLYCHARGE="CHARGES_1898_419" CHARGE_APPLYCHARGE="TAX_1898_419" CALCULATEDONVALUE_APPLYCHARGE="TAPESTRYREQUEST.Amount" CALCULATEDONVALUE_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.Amount" DEBITFROM_APPLYCHARGE="TAPESTRYREQUEST.FromUserIdentifier" DEBITFROM_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.FromUserIdentifier" SOURCEBALANCE_APPLYCHARGE="EMONEY_1281_414" CREDITTO_APPLYCHARGE="TAPESTRYREQUEST.TaxAccountIdentifier" CREDITTO_APPLYCHARGE_DISPLAY="TAPESTRYREQUEST.TaxAccountIdentifier" DESTINATIONBALANCE_APPLYCHARGE="EMONEY_1281_414">
+      <bpmn2:incoming>Flow_0qrm12x_17558399578643807</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_17558399578640542</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <mobifin:serviceTask id="MONITORCOUNTER_Activity_17558399578642751" name="Counter Monitor" UID="MONITORCOUNTER" BlockCategory="1" Task_Name="MonitorCounter" Description="Counter Monitor" OUTPUTPERSISTKEY_MONITORCOUNTER="CounterMonitor" USERIDENTIFIER_MONITORCOUNTER="TAPESTRYREQUEST.FromUserIdentifier" USERIDENTIFIER_MONITORCOUNTER_DISPLAY="TAPESTRYREQUEST.FromUserIdentifier" COUNTERUID_MONITORCOUNTER="FIRST_THREE_TRANSACTION_1898_419" COUNTERVALUE_MONITORCOUNTER="1" COUNTERVALUE_MONITORCOUNTER_DISPLAY="1">
+      <bpmn2:incoming>Flow_093ov93_17500689850724851_17501369893077032_17558399578647062</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_17558399578641312</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:exclusiveGateway id="RULE_Gateway_17558399578644598" UID="RULE" BlockCategory="1" Task_Name="Rule">
+      <bpmn2:incoming>Flow_17558399578641312</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0q3xro5_17558399578641880</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_1n03vrf_17558399578647311</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="Flow_0q3xro5_17558399578641880" name="Counter Less Than 4" sourceRef="RULE_Gateway_17558399578644598" targetRef="APPLYCHARGE_Activity_17558399578642908" Description="Counter Less Than 4" PARAMETER_SEQUENCEFLOW="RESPONSE.CounterMonitor.output.counter_data.counter_status" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.CounterMonitor.output.counter_data.counter_status" OPERATOR_SEQUENCEFLOW="=" VALUE_SEQUENCEFLOW="FALSE" VALUE_SEQUENCEFLOW_DISPLAY="FALSE" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:sequenceFlow id="Flow_1n03vrf_17558399578647311" name="Counter Greater Than 3" sourceRef="RULE_Gateway_17558399578644598" targetRef="APPLYCHARGE_Activity_17558399578642232" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" Description="Counter Greater Than 3" PARAMETER_SEQUENCEFLOW="RESPONSE.CounterMonitor.output.counter_data.counter_status" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.CounterMonitor.output.counter_data.counter_status" OPERATOR_SEQUENCEFLOW="=" VALUE_SEQUENCEFLOW="TRUE" VALUE_SEQUENCEFLOW_DISPLAY="TRUE" />
+    <bpmn2:sequenceFlow id="Flow_17558399578642580" sourceRef="SENDRESPONSE_Activity_0vea2dh_17500689850724851_17558399578644485" targetRef="ENDEVENT_Event_0xxy5i8_17500689850724851_17501369893077032_17558399578640977" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:sequenceFlow id="Flow_17558399578647823" sourceRef="SENDRESPONSE_Activity_0ou88za_17500689850724851_17558399578644823" targetRef="ENDEVENT_Event_0xxy5i8_17500689850724851_17501369893077032_17558399578640977" />
+    <bpmn2:sequenceFlow id="Flow_17558399578640542" sourceRef="APPLYCHARGE_Activity_17558399578649587" targetRef="RULE_Gateway_0cerccj_17558399578644483" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" PARAMETER_SEQUENCEFLOW="" PARAMETER_SEQUENCEFLOW_DISPLAY="" OPERATOR_SEQUENCEFLOW="&#62;" VALUE_SEQUENCEFLOW="" VALUE_SEQUENCEFLOW_DISPLAY="" />
+    <bpmn2:sequenceFlow id="Flow_17558399578641312" sourceRef="MONITORCOUNTER_Activity_17558399578642751" targetRef="RULE_Gateway_17558399578644598" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:exclusiveGateway id="RULE_Gateway_1afhuoi_17558399578640606" UID="RULE" BlockCategory="1" Task_Name="Rule">
+      <bpmn2:incoming>Flow_17m0six_17558399578647208</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0a5vu19_17558399578643764</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_1unqsvr_17558399578642707</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="Flow_17m0six_17558399578647208" sourceRef="APPLYCHARGE_Activity_17558399578642908" targetRef="RULE_Gateway_1afhuoi_17558399578640606" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:sequenceFlow id="Flow_0a5vu19_17558399578643764" name="CashBack Success" sourceRef="RULE_Gateway_1afhuoi_17558399578640606" targetRef="APPLYCHARGE_Activity_17558399578642232" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" Description="CashBack Success" PARAMETER_SEQUENCEFLOW="RESPONSE.CashBackBlock.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.CashBackBlock.response_code" OPERATOR_SEQUENCEFLOW="&#62;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" />
+    <mobifin:serviceTask id="SENDRESPONSE_Activity_030aj7o_17558399578646391" name="Partial Success" UID="SENDRESPONSE" BlockCategory="1" Task_Name="Send Response" RESPONSEDATA_SENDRESPONSE="{Data:RESPONSE.paymentBlock.output},{CashBack:RESPONSE.CashBackBlock.output}" RESPONSECODE_SENDRESPONSE="206" RESPONSECODE_SENDRESPONSE_DISPLAY="206" RESPONSEMESSAGE_SENDRESPONSE="Transaction Success But Cashback Failed" RESPONSEMESSAGE_SENDRESPONSE_DISPLAY="Transaction Success But Cashback Failed" Description="Partial Success">
+      <bpmn2:incoming>Flow_1unqsvr_17558399578642707</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1rllnd0_17558399578644468</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_1unqsvr_17558399578642707" name="CashBack Fail" sourceRef="RULE_Gateway_1afhuoi_17558399578640606" targetRef="SENDRESPONSE_Activity_030aj7o_17558399578646391" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" Description="CashBack Fail" PARAMETER_SEQUENCEFLOW="RESPONSE.CashBackBlock.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.CashBackBlock.response_code" OPERATOR_SEQUENCEFLOW="&#60;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" />
+    <bpmn2:sequenceFlow id="Flow_1rllnd0_17558399578644468" sourceRef="SENDRESPONSE_Activity_030aj7o_17558399578646391" targetRef="ENDEVENT_Event_0xxy5i8_17500689850724851_17501369893077032_17558399578640977" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:exclusiveGateway id="RULE_Gateway_00hrdjs_17558399578642592" UID="RULE" BlockCategory="1" Task_Name="Rule">
+      <bpmn2:incoming>Flow_17558399578643453</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0qrm12x_17558399578643807</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_10jrsb1_17558399578648429</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="Flow_0qrm12x_17558399578643807" name="PlatformFess Success" sourceRef="RULE_Gateway_00hrdjs_17558399578642592" targetRef="APPLYCHARGE_Activity_17558399578649587" Description="PlatformFess Success" PARAMETER_SEQUENCEFLOW="RESPONSE.PlatformFeeBlock.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.PlatformFeeBlock.response_code" OPERATOR_SEQUENCEFLOW="&#62;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <mobifin:serviceTask id="SENDRESPONSE_Activity_16ndiwt_17558399578648875" name="Partial Success" UID="SENDRESPONSE" BlockCategory="1" Task_Name="Send Response" RESPONSEDATA_SENDRESPONSE="{Data:RESPONSE.paymentBlock.output},{PlatformFees:RESPONSE.PlatformFeeBlock.output}" RESPONSECODE_SENDRESPONSE="206" RESPONSECODE_SENDRESPONSE_DISPLAY="206" RESPONSEMESSAGE_SENDRESPONSE="Transaction Success But Fees Collection Failed" RESPONSEMESSAGE_SENDRESPONSE_DISPLAY="Transaction Success But Fees Collection Failed" Description="Partial Success">
+      <bpmn2:incoming>Flow_10jrsb1_17558399578648429</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1lvyo8y_17558399578640428</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_10jrsb1_17558399578648429" name="PlatformFess Fail" sourceRef="RULE_Gateway_00hrdjs_17558399578642592" targetRef="SENDRESPONSE_Activity_16ndiwt_17558399578648875" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" Description="PlatformFess Fail" PARAMETER_SEQUENCEFLOW="RESPONSE.PlatformFeeBlock.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.PlatformFeeBlock.response_code" OPERATOR_SEQUENCEFLOW="&#60;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" />
+    <bpmn2:sequenceFlow id="Flow_1lvyo8y_17558399578640428" sourceRef="SENDRESPONSE_Activity_16ndiwt_17558399578648875" targetRef="ENDEVENT_Event_0xxy5i8_17500689850724851_17501369893077032_17558399578640977" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:exclusiveGateway id="RULE_Gateway_0cerccj_17558399578644483" UID="RULE" BlockCategory="1" Task_Name="Rule">
+      <bpmn2:incoming>Flow_17558399578640542</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0lgy1n4_17558399578645715</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_1wpa1jm_17558399578646556</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="Flow_0lgy1n4_17558399578645715" name="Tax Success" sourceRef="RULE_Gateway_0cerccj_17558399578644483" targetRef="SENDRESPONSE_Activity_0ou88za_17500689850724851_17558399578644823" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" Description="Tax Success" PARAMETER_SEQUENCEFLOW="RESPONSE.Tax.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.Tax.response_code" OPERATOR_SEQUENCEFLOW="&#62;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" />
+    <mobifin:serviceTask id="SENDRESPONSE_Activity_15h25b0_17558399578647738" name="Partial Success" UID="SENDRESPONSE" BlockCategory="1" Task_Name="Send Response" RESPONSEDATA_SENDRESPONSE="{Data:RESPONSE.paymentBlock.output},{Tax:RESPONSE.Tax.output}" RESPONSECODE_SENDRESPONSE="206" RESPONSECODE_SENDRESPONSE_DISPLAY="206" RESPONSEMESSAGE_SENDRESPONSE="Transaction Success But Tax Collection Failed" RESPONSEMESSAGE_SENDRESPONSE_DISPLAY="Transaction Success But Tax Collection Failed" Description="Partial Success">
+      <bpmn2:incoming>Flow_1wpa1jm_17558399578646556</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_15apnx8_17558399578643187</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_1wpa1jm_17558399578646556" name="Tax Fail" sourceRef="RULE_Gateway_0cerccj_17558399578644483" targetRef="SENDRESPONSE_Activity_15h25b0_17558399578647738" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" Description="Tax Fail" PARAMETER_SEQUENCEFLOW="RESPONSE.Tax.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.Tax.response_code" OPERATOR_SEQUENCEFLOW="&#60;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" />
+    <bpmn2:sequenceFlow id="Flow_15apnx8_17558399578643187" sourceRef="SENDRESPONSE_Activity_15h25b0_17558399578647738" targetRef="ENDEVENT_Event_0xxy5i8_17500689850724851_17501369893077032_17558399578640977" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+  <bpmn:extensionElements>
+    <mobifin:collection>
+      <name>Default</name>
+        <mobifin:workflow>
+      <name>Send Money</name>
+      <description>Send Money</description>
+      <apiMethod>ADAPTER_POST</apiMethod>
+      <mobifin:workflowInputParams>
+        <parameter name="Amount" defaultValue="" isMandatory="1" validationMessage="Enter a valid Amount" regularExpression="^(?:\+?\d+(?:\.\d+)?|\+?\.\d+)$"/>
+        <parameter name="CashBackAccountIdentifier" defaultValue="" isMandatory="1" validationMessage="Enter a valid Cashback account" regularExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
+        <parameter name="FeesAccountIdentifier" defaultValue="" isMandatory="1" validationMessage="Enter a valid Fees account" regularExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
+        <parameter name="TaxAccountIdentifier" defaultValue="" isMandatory="1" validationMessage="Enter a valid Tax account" regularExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
+        <parameter name="ToUserIdentifier" defaultValue="" isMandatory="1" validationMessage="Enter a valid ToUserIdentifier" regularExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
+        <parameter name="FromUserIdentifier" defaultValue="" isMandatory="1" validationMessage="Enter a valid FromUserIdentifier" regularExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
+      </mobifin:workflowInputParams>
+    </mobifin:workflow>
+  </mobifin:collection>
+    <mobifin:charge>
+    <name>Cashback</name>
+    <mobifin:chargeType>
+      <name>Rewards</name>
+      <type>MONETARY_POUCHTYPE</type>
+    </mobifin:chargeType>
+    <calculationType>PERCENTAGE</calculationType>
+    <value>1</value>
+    <cap>1000</cap>
+  </mobifin:charge>
+    <mobifin:charge>
+    <name>Platform Fees</name>
+    <mobifin:chargeType>
+      <name>Charges</name>
+      <type>MONETARY_POUCHTYPE</type>
+    </mobifin:chargeType>
+    <calculationType>ABSOLUTE</calculationType>
+    <value>0.5</value>
+    <cap></cap>
+  </mobifin:charge>
+    <mobifin:charge>
+    <name>Tax</name>
+    <mobifin:chargeType>
+      <name>Charges</name>
+      <type>MONETARY_POUCHTYPE</type>
+    </mobifin:chargeType>
+    <calculationType>PERCENTAGE</calculationType>
+    <value>0.5</value>
+    <cap>1000</cap>
+  </mobifin:charge>
+    <mobifin:counter>
+    <name>First Three Transaction</name>
+    <resetType>COUNTER_RESET_TYPE_NORESET</resetType>
+    <monitorUpto>300000</monitorUpto>
+  </mobifin:counter>
+</bpmn:extensionElements>
+</bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1_17500689850724851_17558399578649193">
+    <bpmndi:BPMNPlane id="BPMNPlane_1_17500689850724851_17558399578641892" bpmnElement="Process_1_17500689850724851_17558399578640875">
+      <bpmndi:BPMNShape id="Event_0fxeyvh_di_17500689850724851_17558399578646689" bpmnElement="STARTEVENT_Event_0fxeyvh_17500689850724851_17501369893077032_17558399578642329">
+        <dc:Bounds x="155" y="995" width="150" height="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="217" y="1145" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0xxy5i8_di_17500689850724851_17558399578640976" bpmnElement="ENDEVENT_Event_0xxy5i8_17500689850724851_17501369893077032_17558399578640977">
+        <dc:Bounds x="3825" y="995" width="150" height="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3890" y="1145" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ou88za_di_17500689850724851_17558399578645182" bpmnElement="SENDRESPONSE_Activity_0ou88za_17500689850724851_17558399578644823">
+        <dc:Bounds x="3220" y="780" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06vlz24_di_17500689850724851_17558399578646979" bpmnElement="PROCESSPAYMENT_Activity_06vlz24_17500689850724851_17558399578641162">
+        <dc:Bounds x="450" y="970" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_08cpfhn_di_17500689850724851_17558399578649748" bpmnElement="RULE_Gateway_08cpfhn_17500689850724851_17558399578644719" isMarkerVisible="true">
+        <dc:Bounds x="900" y="1020" width="120" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vea2dh_di_17500689850724851_17558399578646050" bpmnElement="SENDRESPONSE_Activity_0vea2dh_17500689850724851_17558399578644485">
+        <dc:Bounds x="2130" y="1210" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vimzi1_di_17558399578644827" bpmnElement="APPLYCHARGE_Activity_17558399578642908">
+        <dc:Bounds x="1590" y="80" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nds9yo_di_17558399578649040" bpmnElement="APPLYCHARGE_Activity_17558399578642232">
+        <dc:Bounds x="1880" y="770" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0f75llp_di_17558399578645789" bpmnElement="APPLYCHARGE_Activity_17558399578649587">
+        <dc:Bounds x="2550" y="780" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05x2vrg_di_17558399578643179" bpmnElement="MONITORCOUNTER_Activity_17558399578642751">
+        <dc:Bounds x="1100" y="770" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_06x2t5t_di_17558399578648022" bpmnElement="RULE_Gateway_17558399578644598" isMarkerVisible="true">
+        <dc:Bounds x="1450" y="810" width="120" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1afhuoi_di_17558399578644409" bpmnElement="RULE_Gateway_1afhuoi_17558399578640606" isMarkerVisible="true">
+        <dc:Bounds x="1950" y="120" width="120" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_030aj7o_di_17558399578644879" bpmnElement="SENDRESPONSE_Activity_030aj7o_17558399578646391">
+        <dc:Bounds x="3430" y="80" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_00hrdjs_di_17558399578649802" bpmnElement="RULE_Gateway_00hrdjs_17558399578642592" isMarkerVisible="true">
+        <dc:Bounds x="2250" y="820" width="120" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16ndiwt_di_17558399578646174" bpmnElement="SENDRESPONSE_Activity_16ndiwt_17558399578648875">
+        <dc:Bounds x="2190" y="280" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0cerccj_di_17558399578648186" bpmnElement="RULE_Gateway_0cerccj_17558399578644483" isMarkerVisible="true">
+        <dc:Bounds x="2920" y="820" width="120" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15h25b0_di_17558399578646238" bpmnElement="SENDRESPONSE_Activity_15h25b0_17558399578647738">
+        <dc:Bounds x="2830" y="450" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0hwi3vo_di_17500689850724851_17558399578646086" bpmnElement="Flow_0hwi3vo_17500689850724851_17558399578648407">
+        <di:waypoint x="305" y="1070" />
+        <di:waypoint x="450" y="1070" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0taas9i_di_17500689850724851_17558399578646459" bpmnElement="Flow_0taas9i_17500689850724851_17558399578647955">
+        <di:waypoint x="750" y="1080" />
+        <di:waypoint x="900" y="1080" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_093ov93_di_17500689850724851_17558399578643681" bpmnElement="Flow_093ov93_17500689850724851_17501369893077032_17558399578647062">
+        <di:waypoint x="960" y="1020" />
+        <di:waypoint x="960" y="870" />
+        <di:waypoint x="1100" y="870" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1066" y="759" width="45" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bqxm30_di_17500689850724851_17558399578641875" bpmnElement="Flow_1bqxm30_17500689850724851_17501369893077032_17558399578643597">
+        <di:waypoint x="960" y="1140" />
+        <di:waypoint x="960" y="1310" />
+        <di:waypoint x="2130" y="1310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="966" y="1222" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cme5a6_di_17558399578645947" bpmnElement="Flow_17558399578643453">
+        <di:waypoint x="2180" y="880" />
+        <di:waypoint x="2250" y="880" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2248" y="572" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0q3xro5_di_17558399578641838" bpmnElement="Flow_0q3xro5_17558399578641880">
+        <di:waypoint x="1510" y="810" />
+        <di:waypoint x="1510" y="180" />
+        <di:waypoint x="1590" y="180" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1491" y="501" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1n03vrf_di_17558399578645078" bpmnElement="Flow_1n03vrf_17558399578647311">
+        <di:waypoint x="1570" y="870" />
+        <di:waypoint x="1880" y="870" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1683" y="852" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lk3kne_di_17558399578641441" bpmnElement="Flow_17558399578642580">
+        <di:waypoint x="2430" y="1310" />
+        <di:waypoint x="3690" y="1310" />
+        <di:waypoint x="3690" y="1070" />
+        <di:waypoint x="3825" y="1070" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dsx25f_di_17558399578644837" bpmnElement="Flow_17558399578647823">
+        <di:waypoint x="3520" y="880" />
+        <di:waypoint x="3690" y="880" />
+        <di:waypoint x="3690" y="1070" />
+        <di:waypoint x="3825" y="1070" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12bdue9_di_17558399578642204" bpmnElement="Flow_17558399578640542">
+        <di:waypoint x="2850" y="880" />
+        <di:waypoint x="2920" y="880" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2983" y="572" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wbbtmc_di_17558399578642084" bpmnElement="Flow_17558399578641312">
+        <di:waypoint x="1400" y="870" />
+        <di:waypoint x="1450" y="870" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17m0six_di_17558399578640887" bpmnElement="Flow_17m0six_17558399578647208">
+        <di:waypoint x="1890" y="180" />
+        <di:waypoint x="1950" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a5vu19_di_17558399578641795" bpmnElement="Flow_0a5vu19_17558399578643764">
+        <di:waypoint x="2010" y="240" />
+        <di:waypoint x="2010" y="770" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1987" y="495" width="54" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1unqsvr_di_17558399578646416" bpmnElement="Flow_1unqsvr_17558399578642707">
+        <di:waypoint x="2070" y="180" />
+        <di:waypoint x="3430" y="180" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2713" y="162" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rllnd0_di_17558399578645990" bpmnElement="Flow_1rllnd0_17558399578644468">
+        <di:waypoint x="3730" y="180" />
+        <di:waypoint x="3778" y="180" />
+        <di:waypoint x="3778" y="1070" />
+        <di:waypoint x="3825" y="1070" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qrm12x_di_17558399578646260" bpmnElement="Flow_0qrm12x_17558399578643807">
+        <di:waypoint x="2370" y="880" />
+        <di:waypoint x="2550" y="880" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2426" y="862" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10jrsb1_di_17558399578645009" bpmnElement="Flow_10jrsb1_17558399578648429">
+        <di:waypoint x="2310" y="820" />
+        <di:waypoint x="2310" y="480" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2281" y="647" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lvyo8y_di_17558399578648865" bpmnElement="Flow_1lvyo8y_17558399578640428">
+        <di:waypoint x="2490" y="380" />
+        <di:waypoint x="3750" y="380" />
+        <di:waypoint x="3750" y="1070" />
+        <di:waypoint x="3825" y="1070" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lgy1n4_di_17558399578640621" bpmnElement="Flow_0lgy1n4_17558399578645715">
+        <di:waypoint x="3040" y="880" />
+        <di:waypoint x="3220" y="880" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3097" y="862" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wpa1jm_di_17558399578648786" bpmnElement="Flow_1wpa1jm_17558399578646556">
+        <di:waypoint x="2980" y="820" />
+        <di:waypoint x="2980" y="650" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2976" y="732" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15apnx8_di_17558399578646454" bpmnElement="Flow_15apnx8_17558399578643187">
+        <di:waypoint x="3130" y="550" />
+        <di:waypoint x="3720" y="550" />
+        <di:waypoint x="3720" y="1070" />
+        <di:waypoint x="3825" y="1070" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
