@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:mobifin="http://mobifin.io/schema/bpmn" id="sample-diagram_17558397681863836" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_17558397681860676" isExecutable="false">
+    <bpmn2:startEvent id="STARTEVENT_Event_0fxeyvh_17558397681867451" name="Start" UID="STARTEVENT" BlockCategory="1" Task_Name="Start Event">
+      <bpmn2:outgoing>Flow_0av1swi_17558397681863578</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:endEvent id="ENDEVENT_Event_0xxy5i8_17558397681863962" name="End" UID="ENDEVENT" BlockCategory="1" Task_Name="End Event">
+      <bpmn2:incoming>Flow_0tc4nz0_17558397681865773</bpmn2:incoming>
+      <bpmn2:incoming>Flow_0id2hla_17558397681867036</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <mobifin:serviceTask id="CHANGECREDENTIALS_Activity_1j05qv8_17558397681863785" name="Change Password" UID="CHANGECREDENTIALS" BlockCategory="1" Task_Name="Change Credentials" Description="Change Password" USERIDENTIFIER_CHANGECREDENTIALS="RESPONSE.FetchUser.output.user_account.user_identifier" USERIDENTIFIER_CHANGECREDENTIALS_DISPLAY="BLOCKOUTPUT.FetchUser.output.user_account.user_identifier" CREDENTIALTYPE_CHANGECREDENTIALS="PASSWORD_1281_414" NEWCREDENTIAL_CHANGECREDENTIALS="TAPESTRYREQUEST.NewCredential" NEWCREDENTIAL_CHANGECREDENTIALS_DISPLAY="TAPESTRYREQUEST.NewCredential" OUTPUTPERSISTKEY_CHANGECREDENTIALS="ChangePassword">
+      <bpmn2:incoming>Flow_05ysxjp_17558397681860152</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1fsbgw2_17558397681860740</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_1fsbgw2_17558397681860740" sourceRef="CHANGECREDENTIALS_Activity_1j05qv8_17558397681863785" targetRef="RULE_Gateway_0bm89xe_17558397681866121" />
+    <bpmn2:exclusiveGateway id="RULE_Gateway_0bm89xe_17558397681866121" UID="RULE" BlockCategory="1" Task_Name="Rule">
+      <bpmn2:incoming>Flow_1fsbgw2_17558397681860740</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_1c76762_17558397681869837</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_11tvgi8_17558397681868454</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="Flow_1c76762_17558397681869837" name="Success Change Credentials" sourceRef="RULE_Gateway_0bm89xe_17558397681866121" targetRef="SENDRESPONSE_Activity_1iiz6xb_17558397681863117" Description="Success Change Credentials" PARAMETER_SEQUENCEFLOW="RESPONSE.ChangePassword.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.ChangePassword.response_code" OPERATOR_SEQUENCEFLOW="&#62;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" />
+    <mobifin:serviceTask id="SENDRESPONSE_Activity_1iiz6xb_17558397681863117" name="Success Change password" UID="SENDRESPONSE" BlockCategory="1" Task_Name="Send Response" RESPONSEDATA_SENDRESPONSE="{data:RESPONSE.ChangePassword.output},{fetchuserdata:RESPONSE.FetchUser.output}" Description="Success Change password" RESPONSECODE_SENDRESPONSE="1" RESPONSECODE_SENDRESPONSE_DISPLAY="1" RESPONSEMESSAGE_SENDRESPONSE="Change Password Success" RESPONSEMESSAGE_SENDRESPONSE_DISPLAY="Change Password Success">
+      <bpmn2:incoming>Flow_1c76762_17558397681869837</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0tc4nz0_17558397681865773</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_0tc4nz0_17558397681865773" sourceRef="SENDRESPONSE_Activity_1iiz6xb_17558397681863117" targetRef="ENDEVENT_Event_0xxy5i8_17558397681863962" />
+    <mobifin:serviceTask id="SENDRESPONSE_Activity_1anq64u_17558397681863267" name="Fail Change password" UID="SENDRESPONSE" BlockCategory="1" Task_Name="Send Response" RESPONSEDATA_SENDRESPONSE="" Description="Fail Change password" RESPONSECODE_SENDRESPONSE="-1" RESPONSECODE_SENDRESPONSE_DISPLAY="-1" RESPONSEMESSAGE_SENDRESPONSE="Change Password Fail" RESPONSEMESSAGE_SENDRESPONSE_DISPLAY="Change Password Fail">
+      <bpmn2:incoming>Flow_11tvgi8_17558397681868454</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0id2hla_17558397681867036</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_11tvgi8_17558397681868454" name="Fail Change Credentials" sourceRef="RULE_Gateway_0bm89xe_17558397681866121" targetRef="SENDRESPONSE_Activity_1anq64u_17558397681863267" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" Description="Fail Change Credentials" PARAMETER_SEQUENCEFLOW="RESPONSE.ChangePassword.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.ChangePassword.response_code" OPERATOR_SEQUENCEFLOW="&#60;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" />
+    <bpmn2:sequenceFlow id="Flow_0id2hla_17558397681867036" sourceRef="SENDRESPONSE_Activity_1anq64u_17558397681863267" targetRef="ENDEVENT_Event_0xxy5i8_17558397681863962" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:exclusiveGateway id="RULE_Gateway_1a4loqe_17558397681865886" UID="RULE" BlockCategory="1" Task_Name="Rule">
+      <bpmn2:incoming>Flow_0lzyeuc_17558397681866424</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_05ysxjp_17558397681860152</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_0vtsz8s_17558397681867896</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="Flow_05ysxjp_17558397681860152" name="Success Fetch User " sourceRef="RULE_Gateway_1a4loqe_17558397681865886" targetRef="CHANGECREDENTIALS_Activity_1j05qv8_17558397681863785" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" PARAMETER_SEQUENCEFLOW="RESPONSE.FetchUser.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.FetchUser.response_code" OPERATOR_SEQUENCEFLOW="&#62;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" Description="Success Fetch User " />
+    <mobifin:serviceTask id="FETCHUSER_Activity_1r41web_17558397681860120" name="Fetch User Details" UID="FETCHUSER" BlockCategory="1" Task_Name="Fetch User Detail" Description="Fetch User Details" OUTPUTPERSISTKEY_FETCHUSER="FetchUser" USER_IDENTIFIER_FETCHUSER="TAPESTRYREQUEST.UserIdentifier" USER_IDENTIFIER_FETCHUSER_DISPLAY="TAPESTRYREQUEST.UserIdentifier">
+      <bpmn2:incoming>Flow_0av1swi_17558397681863578</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_0lzyeuc_17558397681866424</bpmn2:outgoing>
+    </mobifin:serviceTask>
+    <mobifin:serviceTask id="SENDRESPONSE_Activity_00tf5qn_17558397681863859" name="Fail Fetch USer Details Responce" UID="SENDRESPONSE" BlockCategory="1" Task_Name="Send Response" RESPONSEDATA_SENDRESPONSE="" RESPONSECODE_SENDRESPONSE="-1" RESPONSECODE_SENDRESPONSE_DISPLAY="-1" RESPONSEMESSAGE_SENDRESPONSE="Fetch User Fail" RESPONSEMESSAGE_SENDRESPONSE_DISPLAY="Fetch User Fail" Description="Fail Fetch USer Details Responce">
+      <bpmn2:incoming>Flow_0vtsz8s_17558397681867896</bpmn2:incoming>
+    </mobifin:serviceTask>
+    <bpmn2:sequenceFlow id="Flow_0av1swi_17558397681863578" sourceRef="STARTEVENT_Event_0fxeyvh_17558397681867451" targetRef="FETCHUSER_Activity_1r41web_17558397681860120" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:sequenceFlow id="Flow_0lzyeuc_17558397681866424" sourceRef="FETCHUSER_Activity_1r41web_17558397681860120" targetRef="RULE_Gateway_1a4loqe_17558397681865886" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" />
+    <bpmn2:sequenceFlow id="Flow_0vtsz8s_17558397681867896" name="Fail Fetch User" sourceRef="RULE_Gateway_1a4loqe_17558397681865886" targetRef="SENDRESPONSE_Activity_00tf5qn_17558397681863859" UID="SEQUENCEFLOW" BlockCategory="1" Task_Name="Sequence Flow" Description="Fail Fetch User" PARAMETER_SEQUENCEFLOW="RESPONSE.FetchUser.response_code" PARAMETER_SEQUENCEFLOW_DISPLAY="BLOCKOUTPUT.FetchUser.response_code" OPERATOR_SEQUENCEFLOW="&#60;" VALUE_SEQUENCEFLOW="0" VALUE_SEQUENCEFLOW_DISPLAY="0" />
+  <bpmn:extensionElements>
+    <mobifin:collection>
+  <name>Default</name>
+        <mobifin:workflow>
+      <name>Change Password</name>
+      <description>Change Password</description>
+      <apiMethod>ADAPTER_POST</apiMethod>
+      <mobifin:workflowInputParams>
+        <parameter name="UserIdentifier" defaultValue="" isMandatory="1" validationMessage="" regularExpression=""/>
+        <parameter name="NewCredential" defaultValue="" isMandatory="1" validationMessage="" regularExpression="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&amp;])[A-Za-z\d@$!%*?&amp;]{8,}"/>
+      </mobifin:workflowInputParams>
+    </mobifin:workflow>
+  </mobifin:collection>
+</bpmn:extensionElements>
+</bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_17558397681865554">
+    <bpmndi:BPMNPlane id="BPMNPlane_17558397681861754" bpmnElement="Process_17558397681860676">
+      <bpmndi:BPMNShape id="Event_0fxeyvh_di_17558397681860386" bpmnElement="STARTEVENT_Event_0fxeyvh_17558397681867451">
+        <dc:Bounds x="155" y="95" width="150" height="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="217" y="245" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0xxy5i8_di_17558397681863307" bpmnElement="ENDEVENT_Event_0xxy5i8_17558397681863962">
+        <dc:Bounds x="2075" y="125" width="150" height="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2141" y="275" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1j05qv8_di_17558397681864659" bpmnElement="CHANGECREDENTIALS_Activity_1j05qv8_17558397681863785">
+        <dc:Bounds x="1140" y="100" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0bm89xe_di_17558397681867642" bpmnElement="RULE_Gateway_0bm89xe_17558397681866121" isMarkerVisible="true">
+        <dc:Bounds x="1530" y="140" width="120" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1iiz6xb_di_17558397681860102" bpmnElement="SENDRESPONSE_Activity_1iiz6xb_17558397681863117">
+        <dc:Bounds x="1730" y="100" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1anq64u_di_17558397681863141" bpmnElement="SENDRESPONSE_Activity_1anq64u_17558397681863267">
+        <dc:Bounds x="1730" y="360" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1a4loqe_di_17558397681867780" bpmnElement="RULE_Gateway_1a4loqe_17558397681865886" isMarkerVisible="true">
+        <dc:Bounds x="760" y="90" width="120" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1r41web_di_17558397681867992" bpmnElement="FETCHUSER_Activity_1r41web_17558397681860120">
+        <dc:Bounds x="350" y="70" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00tf5qn_di_17558397681869937" bpmnElement="SENDRESPONSE_Activity_00tf5qn_17558397681863859">
+        <dc:Bounds x="740" y="400" width="300" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1fsbgw2_di_17558397681867252" bpmnElement="Flow_1fsbgw2_17558397681860740">
+        <di:waypoint x="1440" y="200" />
+        <di:waypoint x="1530" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1c76762_di_17558397681863233" bpmnElement="Flow_1c76762_17558397681869837">
+        <di:waypoint x="1650" y="200" />
+        <di:waypoint x="1730" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1649" y="182" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tc4nz0_di_17558397681865462" bpmnElement="Flow_0tc4nz0_17558397681865773">
+        <di:waypoint x="2030" y="200" />
+        <di:waypoint x="2075" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11tvgi8_di_17558397681860657" bpmnElement="Flow_11tvgi8_17558397681868454">
+        <di:waypoint x="1590" y="260" />
+        <di:waypoint x="1590" y="460" />
+        <di:waypoint x="1730" y="460" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1576" y="357" width="62" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0id2hla_di_17558397681868083" bpmnElement="Flow_0id2hla_17558397681867036">
+        <di:waypoint x="2030" y="460" />
+        <di:waypoint x="2053" y="460" />
+        <di:waypoint x="2053" y="200" />
+        <di:waypoint x="2075" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05ysxjp_di_17558397681863561" bpmnElement="Flow_05ysxjp_17558397681860152">
+        <di:waypoint x="880" y="150" />
+        <di:waypoint x="1010" y="150" />
+        <di:waypoint x="1010" y="200" />
+        <di:waypoint x="1140" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="989" y="172" width="76" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0av1swi_di_17558397681863900" bpmnElement="Flow_0av1swi_17558397681863578">
+        <di:waypoint x="305" y="170" />
+        <di:waypoint x="350" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lzyeuc_di_17558397681865894" bpmnElement="Flow_0lzyeuc_17558397681866424">
+        <di:waypoint x="650" y="170" />
+        <di:waypoint x="705" y="170" />
+        <di:waypoint x="705" y="150" />
+        <di:waypoint x="760" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vtsz8s_di_17558397681865053" bpmnElement="Flow_0vtsz8s_17558397681867896">
+        <di:waypoint x="820" y="210" />
+        <di:waypoint x="820" y="305" />
+        <di:waypoint x="890" y="305" />
+        <di:waypoint x="890" y="400" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="817" y="287" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
