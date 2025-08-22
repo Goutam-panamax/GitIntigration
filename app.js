@@ -300,108 +300,6 @@ app.post("/git/cherrypick/approve", async (req, res) => {
   }
 });
 
-
-// app.post("/git/commit", async (req, res) => {
-//   const { message = "Commit from API", files = [], branch = "main" } = req.body;
-
-//   try {
-//     let committedFiles = [];
-//     for (let f of files) {
-//       const localPath = path.join(UPLOAD_PATH, f);
-//       const content = fs.readFileSync(localPath, "base64");
-
-//       const resp = await git.put(`/repos/${OWNER}/${REPO}/contents/Files/${f}`, {
-//         message,
-//         content,
-//         branch
-//       });
-
-//       committedFiles.push({
-//         file: f,
-//         commitId: resp.data.commit.sha
-//       });
-//     }
-
-//     res.json({ message: "Files committed", committedFiles, branch });
-//   } catch (err) {
-//     console.log("err",err)
-//     res.status(500).json({ error: err.response?.data || err.message });
-//   }
-// });
-
-// app.post("/git/cherrypick", async (req, res) => {
-//   const { commits = [], targetBranch } = req.body;
-
-//   if (!targetBranch || commits.length === 0) {
-//     return res.status(400).json({ error: "targetBranch and commits are required" });
-//   }
-
-//   try {
-//     let applied = [];
-
-//     for (let commitSha of commits) {
-//       // 1. Get commit details (includes list of changed files)
-//       const commitResp = await git.get(`/repos/${OWNER}/${REPO}/commits/${commitSha}`);
-//       const commit = commitResp.data;
-
-//       // 2. Get latest commit of target branch
-//       const refResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${targetBranch}`);
-//       const baseSha = refResp.data.object.sha;
-//       const baseCommit = await git.get(`/repos/${OWNER}/${REPO}/git/commits/${baseSha}`);
-//       const baseTreeSha = baseCommit.data.tree.sha;
-
-//       // 3. Prepare tree changes only for files in this commit
-//       let treeItems = [];
-//       for (let file of commit.files) {
-//         if (file.status === "removed") {
-//           treeItems.push({
-//             path: file.filename,
-//             mode: "100644",
-//             sha: null // mark for deletion
-//           });
-//         } else {
-//           // fetch blob contents from GitHub
-//           const blobResp = await git.get(`/repos/${OWNER}/${REPO}/git/blobs/${file.sha}`);
-//           const content = Buffer.from(blobResp.data.content, "base64").toString("utf-8");
-
-//           treeItems.push({
-//             path: file.filename,
-//             mode: "100644",
-//             type: "blob",
-//             content
-//           });
-//         }
-//       }
-
-//       // 4. Create a new tree on top of target branch tree
-//       const newTreeResp = await git.post(`/repos/${OWNER}/${REPO}/git/trees`, {
-//         base_tree: baseTreeSha,
-//         tree: treeItems
-//       });
-
-//       // 5. Create new commit with that tree
-//       const newCommitResp = await git.post(`/repos/${OWNER}/${REPO}/git/commits`, {
-//         message: `[Cherry-pick] ${commit.commit.message}`,
-//         tree: newTreeResp.data.sha,
-//         parents: [baseSha]
-//       });
-
-//       // 6. Update target branch to point to new commit
-//       await git.patch(`/repos/${OWNER}/${REPO}/git/refs/heads/${targetBranch}`, {
-//         sha: newCommitResp.data.sha,
-//         force: false
-//       });
-
-//       applied.push(newCommitResp.data.sha);
-//     }
-
-//     res.json({ message: "Commits cherry-picked", targetBranch, applied });
-//   } catch (err) {
-//     res.status(500).json({ error: err.response?.data || err.message });
-//   }
-// });
-
-
 app.post("/git/switch", async (req, res) => {
   const { branch,currentBranch } = req.body;
   let CURRENT_BRANCH = currentBranch ?? "dev";
@@ -423,6 +321,83 @@ app.post("/git/switch", async (req, res) => {
     CURRENT_BRANCH = branch;
     res.json({ message: `Switched to branch ${branch}`, currentBranch: CURRENT_BRANCH });
   } catch (err) {
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+// Create a new branch with safety check
+app.post("/git/branch", async (req, res) => {
+  const { branch, baseBranch = "dev" } = req.body;
+
+  if (!branch) {
+    return res.status(400).json({ error: "branch is required" });
+  }
+
+  try {
+    // Step 0: Check if branch already exists
+    try {
+      await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${branch}`);
+      return res.status(400).json({ error: `Branch '${branch}' already exists` });
+    } catch (err) {
+      if (err.response?.status !== 404) {
+        throw err; // only ignore 404, rethrow others
+      }
+    }
+
+    // Step 1: Get the latest commit SHA from the base branch
+    const baseRefResp = await git.get(`/repos/${OWNER}/${REPO}/git/ref/heads/${baseBranch}`);
+    const latestSha = baseRefResp.data.object.sha;
+
+    // Step 2: Create new branch reference
+    const createRefResp = await git.post(`/repos/${OWNER}/${REPO}/git/refs`, {
+      ref: `refs/heads/${branch}`,
+      sha: latestSha
+    });
+
+    res.json({
+      message: `Branch '${branch}' created from '${baseBranch}'`,
+      branch: branch,
+      sha: createRefResp.data.object.sha
+    });
+  } catch (err) {
+    console.error("Branch creation error:", err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data || err.message });
+  }
+});
+
+// Protect a branch (require PRs, block direct pushes)
+app.post("/git/protect-branch", async (req, res) => {
+  const { branch } = req.body;
+
+  if (!branch) {
+    return res.status(400).json({ error: "branch is required" });
+  }
+
+  try {
+    const resp = await git.put(
+      `/repos/${OWNER}/${REPO}/branches/${branch}/protection`,
+      {
+        required_status_checks: null, // you can set specific CI checks here
+        enforce_admins: true,        // even admins must follow rules
+        required_pull_request_reviews: {
+          required_approving_review_count: 1, // require at least 1 approval
+          dismiss_stale_reviews: true
+        },
+        restrictions: null // if you want to restrict which users/teams can push
+      },
+      {
+        headers: {
+          Accept: "application/vnd.github.luke-cage-preview+json" // required header for branch protection API
+        }
+      }
+    );
+
+    res.json({
+      message: `Branch '${branch}' is now protected`,
+      protection: resp.data
+    });
+  } catch (err) {
+    console.error("Branch protection error:", err.response?.data || err.message);
     res.status(500).json({ error: err.response?.data || err.message });
   }
 });
